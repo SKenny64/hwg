@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CoordonneesOrganisateur index{% endblock %}
+
+{% block body %}
+    <h1>CoordonneesOrganisateur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Raison_sociale</th>
+                <th>Site_web</th>
+                <th>Telephone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for coordonnees_organisateur in coordonnees_organisateurs %}
+            <tr>
+                <td>{{ coordonnees_organisateur.id }}</td>
+                <td>{{ coordonnees_organisateur.raisonSociale }}</td>
+                <td>{{ coordonnees_organisateur.siteWeb }}</td>
+                <td>{{ coordonnees_organisateur.telephone }}</td>
+                <td>
+                    <a href="{{ path('app_coordonnees_organisateur_show', {'id': coordonnees_organisateur.id}) }}">show</a>
+                    <a href="{{ path('app_coordonnees_organisateur_edit', {'id': coordonnees_organisateur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_coordonnees_organisateur_new') }}">Create new</a>
+{% endblock %}

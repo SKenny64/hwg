@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240304210459 extends AbstractMigration
+final class Version20240305091034 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,16 +20,12 @@ final class Version20240304210459 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE event ADD category_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA712469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_3BAE0AA712469DE2 ON event (category_id)');
+        $this->addSql('CREATE TABLE coordonnees_utilisateur (id INT AUTO_INCREMENT NOT NULL, civilite VARCHAR(10) NOT NULL, prenom VARCHAR(50) NOT NULL, nom VARCHAR(120) NOT NULL, telephone VARCHAR(20) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE event DROP FOREIGN KEY FK_3BAE0AA712469DE2');
-        $this->addSql('DROP INDEX UNIQ_3BAE0AA712469DE2 ON event');
-        $this->addSql('ALTER TABLE event DROP category_id');
+        $this->addSql('DROP TABLE coordonnees_utilisateur');
     }
 }
