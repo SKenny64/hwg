@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTimeImmutable;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
@@ -38,8 +39,9 @@ class RegistrationController extends AbstractController
                     $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
-                )
+                    )
             );
+            $user->setDateCreationUser(new DateTimeImmutable('now'));
 
             $entityManager->persist($user);
             $entityManager->flush();

@@ -25,9 +25,6 @@ class CoordonneesUtilisateur
     #[ORM\Column(length: 20)]
     private ?string $telephone = null;
 
-    #[ORM\OneToOne(inversedBy: 'coordonneesUtilisateur', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
 
     public function getId(): ?int
     {

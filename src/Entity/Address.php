@@ -26,10 +26,6 @@ class Address
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $zip_code = null;
 
-    #[ORM\OneToOne(inversedBy: 'address', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
     public function getId(): ?int
     {
         return $this->id;

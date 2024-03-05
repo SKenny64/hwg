@@ -17,11 +17,6 @@ class Reservation
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_reservation = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?User $user = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Transport $transport = null;
 
     public function getId(): ?int
     {
