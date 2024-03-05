@@ -1,7 +1,52 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-    background-color: skyblue;
+    background-color: wheat;
+}
+
+%footer-list {
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & img {
+        width: 150px;
+    }
+}
+
+.footer-contact,
+.footer-social {
+    @extend %footer-list;
+    text-align: center;
+
+    & img {
+        width: 30px;
+    }
+}
+
+.footer-nav {
+    @extend %footer-list;
+
+}
+
+.footer-event-box {
+    @extend %footer-list;
+
+    & img {
+        margin: 10px;
+    }
+}
+
+h1 {
+    font-family: "Bungee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 5px;
 }
 
 .btn-category {
