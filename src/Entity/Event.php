@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -55,6 +57,14 @@ class Event
 
     #[ORM\ManyToOne(inversedBy: 'events')]
     private ?Category $category = null;
+
+    #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'event')]
+    private Collection $transport;
+
+    public function __construct()
+    {
+        $this->transport = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -270,6 +280,28 @@ class Event
         }
 
         $this->imageEvent = $imageEvent;
+
+        return $this;
+    }
+
+    public function addTransport(Transport $transport): static
+    {
+        if (!$this->transport->contains($transport)) {
+            $this->transport->add($transport);
+            $transport->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransport(Transport $transport): static
+    {
+        if ($this->transport->removeElement($transport)) {
+            // set the owning side to null (unless already changed)
+            if ($transport->getEvent() === $this) {
+                $transport->setEvent(null);
+            }
+        }
 
         return $this;
     }

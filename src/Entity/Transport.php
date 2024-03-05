@@ -38,6 +38,9 @@ class Transport
     #[ORM\Column(length: 50)]
     private ?string $transport_status = null;
 
+    #[ORM\ManyToOne(inversedBy: 'transport')]
+    private ?Event $event = null;
+
 
     public function getId(): ?int
     {
