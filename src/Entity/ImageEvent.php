@@ -19,6 +19,9 @@ class ImageEvent
     #[ORM\Column]
     private ?bool $cover = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ImageEvent')]
+    private ?Event $event = null;
+
 
     public function getId(): ?int
     {

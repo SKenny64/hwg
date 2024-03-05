@@ -61,9 +61,13 @@ class Event
     #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'event')]
     private Collection $transport;
 
+    #[ORM\OneToMany(targetEntity: ImageEvent::class, mappedBy: 'event')]
+    private Collection $ImageEvent;
+
     public function __construct()
     {
         $this->transport = new ArrayCollection();
+        $this->ImageEvent = new ArrayCollection();
     }
 
 
@@ -300,6 +304,28 @@ class Event
             // set the owning side to null (unless already changed)
             if ($transport->getEvent() === $this) {
                 $transport->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addImageEvent(ImageEvent $imageEvent): static
+    {
+        if (!$this->ImageEvent->contains($imageEvent)) {
+            $this->ImageEvent->add($imageEvent);
+            $imageEvent->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImageEvent(ImageEvent $imageEvent): static
+    {
+        if ($this->ImageEvent->removeElement($imageEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($imageEvent->getEvent() === $this) {
+                $imageEvent->setEvent(null);
             }
         }
 
