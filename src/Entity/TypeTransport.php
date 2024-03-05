@@ -16,8 +16,6 @@ class TypeTransport
     #[ORM\Column(length: 50)]
     private ?string $name_transport = null;
 
-    #[ORM\OneToOne(mappedBy: 'type_transport', cascade: ['persist', 'remove'])]
-    private ?Transport $transport = null;
 
     public function getId(): ?int
     {

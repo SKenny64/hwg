@@ -33,7 +33,7 @@
 						<a class="nav-link active" aria-current="page" href="#">
 							<h1>Accueil</h1>
 						</a>
-						<button class="btn btn-outline-info" type="submit">Se connecter</button>
+						<a class="btn btn-outline-info" href="{{ path('app_login')}}" type="submit">Se connecter</a>
 					</div>
 				</div>
 			</nav>
@@ -62,74 +62,75 @@
 								</ul>
 							</li>
 						</ul>
-						<a class="nav-link" aria-current="page" href="#">Créer un compte</a>
+						<a class="nav-link" aria-current="page" href="{{path('app_register')}}">Créer un compte</a>
 					</div>
 				</div>
 			</nav>
 		</header>
 		{% block body %}{% endblock %}
-	</body>
-	<footer class="text-bg-dark">
-		<div class="container">
-			<div class="row gy-4">
-				<div class="footer-logo col-lg-3">
-					<img src="imgs/logo.png" alt="#">
-					<ul class="footer-contact">
-						<li>Adresse</li>
-						<li>Téléphone</li>
-						<li>Mail</li>
-					</ul>
-					<ul class="footer-social d-flex justify-content-between">
-						<li>
-							<a href="#"><img src="http://placehold.it/30x30"></a>
-						</li>
-						<li>
-							<a href="#"><img src="http://placehold.it/30x30"></a>
-						</li>
-						<li>
-							<a href="#"><img src="http://placehold.it/30x30"></a>
-						</li>
-					</ul>
-				</div>
-				<div class="col-lg-3">
-					<h1>Navigation</h1>
-					<ul class="footer-nav">
-						<li>
-							<a href="#">Lien nav</a>
-						</li>
-						<li>
-							<a href="#">Lien nav</a>
-						</li>
-						<li>
-							<a href="#">Lien nav</a>
-						</li>
-						<li>
-							<a href="#">Lien nav</a>
-						</li>
-					</ul>
-				</div>
-				<div class="footer-about col-lg-3">
-					<h1>Qui sommes-nous?</h1>
-					<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt quae sapiente officia earum? Quia ea modi nostrum ad libero et corporis quisquam eius, nemo vel! Itaque delectus similique voluptatum temporibus!</p>
-				</div>
-				<div class="footer-event col-lg-3">
-					<h1>à découvrir</h1>
-					<ul class="footer-event-box d-flex flex-wrap">
-						<li>
-							<a href="#"><img src="{{ absolute_url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK6c34VhXvxEpsH0wG1WQHdR3tk89ZTCK4MhDfLfqrCw&s')}}" alt="Instagram 01"></a>
-						</li>
-						<li>
-							<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 02"></a>
-						</li>
-						<li>
-							<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 03"></a>
-						</li>
-						<li>
-							<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 04"></a>
-						</li>
-					</ul>
+		<footer class="text-bg-dark">
+			<div class="container">
+				<div class="row gy-4">
+					<div class="footer-logo col-lg-3">
+						<img src="imgs/logo.png" alt="#">
+						<ul class="footer-contact">
+							<li>Adresse</li>
+							<li>Téléphone</li>
+							<li>Mail</li>
+						</ul>
+						<ul class="footer-social d-flex justify-content-between">
+							<li>
+								<a href="#"><img src="http://placehold.it/30x30"></a>
+							</li>
+							<li>
+								<a href="#"><img src="http://placehold.it/30x30"></a>
+							</li>
+							<li>
+								<a href="#"><img src="http://placehold.it/30x30"></a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-lg-3">
+						<h1>Navigation</h1>
+						<ul class="footer-nav">
+							<li>
+								<a href="#">Lien nav</a>
+							</li>
+							<li>
+								<a href="#">Lien nav</a>
+							</li>
+							<li>
+								<a href="#">Lien nav</a>
+							</li>
+							<li>
+								<a href="#">Lien nav</a>
+							</li>
+						</ul>
+					</div>
+					<div class="footer-about col-lg-3">
+						<h1>Qui sommes-nous?</h1>
+						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt quae sapiente officia earum? Quia ea modi nostrum ad libero et corporis quisquam eius, nemo vel! Itaque delectus similique voluptatum temporibus!</p>
+					</div>
+					<div class="footer-event col-lg-3">
+						<h1>à découvrir</h1>
+						<ul class="footer-event-box d-flex flex-wrap">
+							<li>
+								<a href="#"><img src="{{ absolute_url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK6c34VhXvxEpsH0wG1WQHdR3tk89ZTCK4MhDfLfqrCw&s')}}" alt="Instagram 01"></a>
+							</li>
+							<li>
+								<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 02"></a>
+							</li>
+							<li>
+								<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 03"></a>
+							</li>
+							<li>
+								<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 04"></a>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	</body>
 </html>

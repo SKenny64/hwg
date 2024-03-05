@@ -19,8 +19,6 @@ class Category
     #[ORM\Column(length: 50)]
     private ?string $color = null;
 
-    #[ORM\OneToOne(mappedBy: 'category', cascade: ['persist', 'remove'])]
-    private ?Event $event = null;
 
     public function getId(): ?int
     {

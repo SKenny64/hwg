@@ -53,14 +53,6 @@ class Event
     #[ORM\Column(length: 50)]
     private ?string $event_status = null;
 
-    #[ORM\OneToOne(mappedBy: 'event', cascade: ['persist', 'remove'])]
-    private ?Transport $transport = null;
-
-    #[ORM\OneToOne(inversedBy: 'event', cascade: ['persist', 'remove'])]
-    private ?Category $category = null;
-
-    #[ORM\OneToOne(mappedBy: 'event', cascade: ['persist', 'remove'])]
-    private ?ImageEvent $imageEvent = null;
 
     public function getId(): ?int
     {

@@ -38,11 +38,6 @@ class Transport
     #[ORM\Column(length: 50)]
     private ?string $transport_status = null;
 
-    #[ORM\OneToOne(inversedBy: 'transport', cascade: ['persist', 'remove'])]
-    private ?TypeTransport $type_transport = null;
-
-    #[ORM\OneToOne(inversedBy: 'transport', cascade: ['persist', 'remove'])]
-    private ?Event $event = null;
 
     public function getId(): ?int
     {

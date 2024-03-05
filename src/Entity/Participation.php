@@ -17,11 +17,6 @@ class Participation
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_participation = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?User $user = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Event $event = null;
 
     public function getId(): ?int
     {

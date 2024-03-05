@@ -19,8 +19,6 @@ class ImageEvent
     #[ORM\Column]
     private ?bool $cover = null;
 
-    #[ORM\OneToOne(inversedBy: 'imageEvent', cascade: ['persist', 'remove'])]
-    private ?Event $event = null;
 
     public function getId(): ?int
     {
