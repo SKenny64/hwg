@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -40,17 +41,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?CoordonneesUtilisateur $coordonneesUtilisateur = null;
-
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?CoordonneesOrganisateur $coordonneesOrganisateur = null;
-
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Address $address = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_creation_user = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
     public function getId(): ?int
     {
@@ -150,65 +142,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCoordonneesUtilisateur(): ?CoordonneesUtilisateur
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->coordonneesUtilisateur;
+        return $this->createdAt;
     }
 
-    public function setCoordonneesUtilisateur(CoordonneesUtilisateur $coordonneesUtilisateur): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
-        // set the owning side of the relation if necessary
-        if ($coordonneesUtilisateur->getUser() !== $this) {
-            $coordonneesUtilisateur->setUser($this);
-        }
-
-        $this->coordonneesUtilisateur = $coordonneesUtilisateur;
-
-        return $this;
-    }
-
-    public function getCoordonneesOrganisateur(): ?CoordonneesOrganisateur
-    {
-        return $this->coordonneesOrganisateur;
-    }
-
-    public function setCoordonneesOrganisateur(CoordonneesOrganisateur $coordonneesOrganisateur): static
-    {
-        // set the owning side of the relation if necessary
-        if ($coordonneesOrganisateur->getUser() !== $this) {
-            $coordonneesOrganisateur->setUser($this);
-        }
-
-        $this->coordonneesOrganisateur = $coordonneesOrganisateur;
-
-        return $this;
-    }
-
-    public function getAddress(): ?Address
-    {
-        return $this->address;
-    }
-
-    public function setAddress(Address $address): static
-    {
-        // set the owning side of the relation if necessary
-        if ($address->getUser() !== $this) {
-            $address->setUser($this);
-        }
-
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getDateCreationUser(): ?\DateTimeInterface
-    {
-        return $this->date_creation_user;
-    }
-
-    public function setDateCreationUser(\DateTimeInterface $date_creation_user): static
-    {
-        $this->date_creation_user = $date_creation_user;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

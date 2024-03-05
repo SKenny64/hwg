@@ -25,7 +25,7 @@
 		<header>
 			<nav class="navbar navbar-expand-lg bg-body-tertiary">
 				<div class="container align-items-start">
-					<a class="navbar-brand w-25" href="index.html"><img class="w-50" src="imgs/logo.png" alt=""></a>
+					<a class="navbar-brand w-25" href="index.html"><img class="w-50" src="{{ asset('imgs/logo.png') }}" alt=""></a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
@@ -33,7 +33,7 @@
 						<a class="nav-link active" aria-current="page" href="#">
 							<h1>Accueil</h1>
 						</a>
-						<button class="btn btn-outline-info" type="submit">Se connecter</button>
+						<a href="{{ path('app_login') }}" class="btn btn-outline-info" type="submit">Se connecter</a>
 					</div>
 				</div>
 			</nav>
@@ -62,7 +62,7 @@
 								</ul>
 							</li>
 						</ul>
-						<a class="nav-link" aria-current="page" href="#">Créer un compte</a>
+						<a class="nav-link" aria-current="page" href="{{ path('app_register') }}">Créer un compte</a>
 					</div>
 				</div>
 			</nav>
@@ -73,7 +73,7 @@
 		<div class="container">
 			<div class="row gy-4">
 				<div class="footer-logo col-lg-3">
-					<img src="imgs/logo.png" alt="#">
+					<img src="{{ asset('imgs/logo.png') }}" alt="#">
 					<ul class="footer-contact">
 						<li>Adresse</li>
 						<li>Téléphone</li>
@@ -81,13 +81,13 @@
 					</ul>
 					<ul class="footer-social d-flex justify-content-between">
 						<li>
-							<a href="#"><img src="http://placehold.it/30x30"></a>
+							<a href="#"><img src="http://placehold.co/30x30"></a>
 						</li>
 						<li>
-							<a href="#"><img src="http://placehold.it/30x30"></a>
+							<a href="#"><img src="http://placehold.co/30x30"></a>
 						</li>
 						<li>
-							<a href="#"><img src="http://placehold.it/30x30"></a>
+							<a href="#"><img src="http://placehold.co/30x30"></a>
 						</li>
 					</ul>
 				</div>
@@ -116,16 +116,16 @@
 					<h1>à découvrir</h1>
 					<ul class="footer-event-box d-flex flex-wrap">
 						<li>
-							<a href="#"><img src="{{ absolute_url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK6c34VhXvxEpsH0wG1WQHdR3tk89ZTCK4MhDfLfqrCw&s')}}" alt="Instagram 01"></a>
+							<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 01"></a>
 						</li>
 						<li>
-							<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 02"></a>
+							<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 02"></a>
 						</li>
 						<li>
-							<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 03"></a>
+							<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 03"></a>
 						</li>
 						<li>
-							<a href="#"><img src="http://placehold.it/85x85" alt="Instagram 04"></a>
+							<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 04"></a>
 						</li>
 					</ul>
 				</div>
