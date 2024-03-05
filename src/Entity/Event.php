@@ -53,6 +53,9 @@ class Event
     #[ORM\Column(length: 50)]
     private ?string $event_status = null;
 
+    #[ORM\ManyToOne(inversedBy: 'events')]
+    private ?Category $category = null;
+
 
     public function getId(): ?int
     {
