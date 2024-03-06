@@ -58,9 +58,13 @@ class Evenement
     #[ORM\OneToMany(targetEntity: ImageEvenement::class, mappedBy: 'evenement')]
     private Collection $ImageEvenement;
 
+    #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'evenement')]
+    private Collection $transport;
+
     public function __construct()
     {
         $this->ImageEvenement = new ArrayCollection();
+        $this->transport = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,6 +252,36 @@ class Evenement
             // set the owning side to null (unless already changed)
             if ($imageEvenement->getEvenement() === $this) {
                 $imageEvenement->setEvenement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transport>
+     */
+    public function getTransport(): Collection
+    {
+        return $this->transport;
+    }
+
+    public function addTransport(Transport $transport): static
+    {
+        if (!$this->transport->contains($transport)) {
+            $this->transport->add($transport);
+            $transport->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransport(Transport $transport): static
+    {
+        if ($this->transport->removeElement($transport)) {
+            // set the owning side to null (unless already changed)
+            if ($transport->getEvenement() === $this) {
+                $transport->setEvenement(null);
             }
         }
 
