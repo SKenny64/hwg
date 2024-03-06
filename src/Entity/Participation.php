@@ -17,6 +17,9 @@ class Participation
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateParticipation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'participation')]
+    private ?Evenement $evenement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +33,18 @@ class Participation
     public function setDateParticipation(?\DateTimeInterface $dateParticipation): static
     {
         $this->dateParticipation = $dateParticipation;
+
+        return $this;
+    }
+
+    public function getEvenement(): ?Evenement
+    {
+        return $this->evenement;
+    }
+
+    public function setEvenement(?Evenement $evenement): static
+    {
+        $this->evenement = $evenement;
 
         return $this;
     }
