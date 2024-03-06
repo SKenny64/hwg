@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transport{% endblock %}
+
+{% block body %}
+    <h1>Transport</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ transport.id }}</td>
+            </tr>
+            <tr>
+                <th>TarifPersonne</th>
+                <td>{{ transport.TarifPersonne }}</td>
+            </tr>
+            <tr>
+                <th>Descriptif</th>
+                <td>{{ transport.descriptif }}</td>
+            </tr>
+            <tr>
+                <th>InfoContact</th>
+                <td>{{ transport.InfoContact }}</td>
+            </tr>
+            <tr>
+                <th>DateDepart</th>
+                <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateCreation</th>
+                <td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>LieuDepart</th>
+                <td>{{ transport.LieuDepart }}</td>
+            </tr>
+            <tr>
+                <th>NbPlace</th>
+                <td>{{ transport.NbPlace }}</td>
+            </tr>
+            <tr>
+                <th>InfoPaiement</th>
+                <td>{{ transport.InfoPaiement }}</td>
+            </tr>
+            <tr>
+                <th>StatutTransport</th>
+                <td>{{ transport.StatutTransport }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_transport_index') }}">back to list</a>
+
+    <a href="{{ path('app_transport_edit', {'id': transport.id}) }}">edit</a>
+
+    {{ include('transport/_delete_form.html.twig') }}
+{% endblock %}

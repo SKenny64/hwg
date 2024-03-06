@@ -20,6 +20,9 @@ class Reservation
     #[ORM\ManyToOne(inversedBy: 'reservation')]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reservation')]
+    private ?Transport $transport = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Reservation
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTransport(): ?Transport
+    {
+        return $this->transport;
+    }
+
+    public function setTransport(?Transport $transport): static
+    {
+        $this->transport = $transport;
 
         return $this;
     }

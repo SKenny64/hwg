@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TransportRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -49,6 +51,14 @@ class Transport
 
     #[ORM\ManyToOne(inversedBy: 'transport')]
     private ?User $user = null;
+
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'transport')]
+    private Collection $reservation;
+
+    public function __construct()
+    {
+        $this->reservation = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -195,6 +205,36 @@ class Transport
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservation(): Collection
+    {
+        return $this->reservation;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservation->contains($reservation)) {
+            $this->reservation->add($reservation);
+            $reservation->setTransport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservation->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getTransport() === $this) {
+                $reservation->setTransport(null);
+            }
+        }
 
         return $this;
     }

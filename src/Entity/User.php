@@ -51,12 +51,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'user')]
     private Collection $reservation;
 
+    #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'user')]
+    private Collection $adresse;
+
+    #[ORM\OneToMany(targetEntity: CoordonneesOrganisateur::class, mappedBy: 'user')]
+    private Collection $CoordonneesOrganisateur;
+
+    #[ORM\OneToMany(targetEntity: CoordonneesUtilisateur::class, mappedBy: 'user')]
+    private Collection $CoordonneesUtilisateur;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
         $this->participation = new ArrayCollection();
         $this->transport = new ArrayCollection();
         $this->reservation = new ArrayCollection();
+        $this->adresse = new ArrayCollection();
+        $this->CoordonneesOrganisateur = new ArrayCollection();
+        $this->CoordonneesUtilisateur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -272,6 +284,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($reservation->getUser() === $this) {
                 $reservation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adresse>
+     */
+    public function getAdresse(): Collection
+    {
+        return $this->adresse;
+    }
+
+    public function addAdresse(Adresse $adresse): static
+    {
+        if (!$this->adresse->contains($adresse)) {
+            $this->adresse->add($adresse);
+            $adresse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdresse(Adresse $adresse): static
+    {
+        if ($this->adresse->removeElement($adresse)) {
+            // set the owning side to null (unless already changed)
+            if ($adresse->getUser() === $this) {
+                $adresse->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CoordonneesOrganisateur>
+     */
+    public function getCoordonneesOrganisateur(): Collection
+    {
+        return $this->CoordonneesOrganisateur;
+    }
+
+    public function addCoordonneesOrganisateur(CoordonneesOrganisateur $coordonneesOrganisateur): static
+    {
+        if (!$this->CoordonneesOrganisateur->contains($coordonneesOrganisateur)) {
+            $this->CoordonneesOrganisateur->add($coordonneesOrganisateur);
+            $coordonneesOrganisateur->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoordonneesOrganisateur(CoordonneesOrganisateur $coordonneesOrganisateur): static
+    {
+        if ($this->CoordonneesOrganisateur->removeElement($coordonneesOrganisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($coordonneesOrganisateur->getUser() === $this) {
+                $coordonneesOrganisateur->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CoordonneesUtilisateur>
+     */
+    public function getCoordonneesUtilisateur(): Collection
+    {
+        return $this->CoordonneesUtilisateur;
+    }
+
+    public function addCoordonneesUtilisateur(CoordonneesUtilisateur $coordonneesUtilisateur): static
+    {
+        if (!$this->CoordonneesUtilisateur->contains($coordonneesUtilisateur)) {
+            $this->CoordonneesUtilisateur->add($coordonneesUtilisateur);
+            $coordonneesUtilisateur->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoordonneesUtilisateur(CoordonneesUtilisateur $coordonneesUtilisateur): static
+    {
+        if ($this->CoordonneesUtilisateur->removeElement($coordonneesUtilisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($coordonneesUtilisateur->getUser() === $this) {
+                $coordonneesUtilisateur->setUser(null);
             }
         }
 

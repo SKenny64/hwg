@@ -22,6 +22,9 @@ class CoordonneesOrganisateur
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $telephone = null;
 
+    #[ORM\ManyToOne(inversedBy: 'CoordonneesOrganisateur')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class CoordonneesOrganisateur
     public function setTelephone(?string $telephone): static
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
