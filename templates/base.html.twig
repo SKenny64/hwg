@@ -39,10 +39,10 @@
 							{% else %}
 							<img src="{{ app.user.avatar }}" alt="">
 							{% endif %}
-							{{ app.user.userIdentifier }}, <a class="btn btn-outline-info" href="{{ path('app_logout') }}">Logout</a>
+							{# {{ app.user.userIdentifier }}, <a class="btn btn-outline-info" href="{{ path('app_logout') }}">Logout</a> #}
 						</div>
             			{% else %}
-						<a class="btn btn-outline-info" href="{{ path('app_login')}}" type="submit">Se connecter</a>
+						{# <a class="btn btn-outline-info" href="{{ path('app_login')}}" type="submit">Se connecter</a> #}
 						{% endif %}
 					</div>
 				</div>
@@ -78,12 +78,15 @@
 				</div>
 			</nav>
 		</header>
-		{% block body %}{% endblock %}
+        <div class="container">
+		{% block body %}
+        {% endblock %}
+        </div>
 		<footer class="text-bg-dark">
 			<div class="container">
 				<div class="row gy-4">
 					<div class="footer-logo col-lg-3">
-						<img src="imgs/logo.png" alt="#">
+						<img src="{{ asset('imgs/logo.png') }}" alt="#">
 						<ul class="footer-contact">
 							<li>Adresse</li>
 							<li>Téléphone</li>
