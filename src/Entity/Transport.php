@@ -41,6 +41,9 @@ class Transport
     #[ORM\ManyToOne(inversedBy: 'transport')]
     private ?Event $event = null;
 
+    #[ORM\ManyToOne(inversedBy: 'transports')]
+    private ?TypeTransport $TypeTransport = null;
+
 
     public function getId(): ?int
     {

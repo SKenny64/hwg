@@ -232,7 +232,10 @@ class Event
         return $this;
     }
 
-    public function getTransport(): ?Transport
+    /**
+     * @return Collection<int, transport>
+    */
+    public function getTransport(): Collection
     {
         return $this->transport;
     }

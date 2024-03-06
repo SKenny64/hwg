@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TypeTransportRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeTransportRepository::class)]
@@ -15,6 +17,14 @@ class TypeTransport
 
     #[ORM\Column(length: 50)]
     private ?string $name_transport = null;
+
+    #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'TypeTransport')]
+    private Collection $transports;
+
+    public function __construct()
+    {
+        $this->transports = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -52,6 +62,36 @@ class TypeTransport
         }
 
         $this->transport = $transport;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transport>
+     */
+    public function getTransports(): Collection
+    {
+        return $this->transports;
+    }
+
+    public function addTransport(Transport $transport): static
+    {
+        if (!$this->transports->contains($transport)) {
+            $this->transports->add($transport);
+            $transport->setTypeTransport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransport(Transport $transport): static
+    {
+        if ($this->transports->removeElement($transport)) {
+            // set the owning side to null (unless already changed)
+            if ($transport->getTypeTransport() === $this) {
+                $transport->setTypeTransport(null);
+            }
+        }
 
         return $this;
     }
