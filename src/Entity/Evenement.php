@@ -61,6 +61,9 @@ class Evenement
     #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'evenement')]
     private Collection $transport;
 
+    #[ORM\ManyToOne(inversedBy: 'evenements')]
+    private ?User $User = null;
+
     public function __construct()
     {
         $this->ImageEvenement = new ArrayCollection();
@@ -284,6 +287,18 @@ class Evenement
                 $transport->setEvenement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): static
+    {
+        $this->User = $User;
 
         return $this;
     }
