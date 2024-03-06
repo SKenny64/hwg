@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -52,6 +54,14 @@ class Evenement
 
     #[ORM\ManyToOne(inversedBy: 'evenements')]
     private ?Categorie $categorie = null;
+
+    #[ORM\OneToMany(targetEntity: ImageEvenement::class, mappedBy: 'evenement')]
+    private Collection $ImageEvenement;
+
+    public function __construct()
+    {
+        $this->ImageEvenement = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -210,6 +220,36 @@ class Evenement
     public function setCategorie(?Categorie $categorie): static
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ImageEvenement>
+     */
+    public function getImageEvenement(): Collection
+    {
+        return $this->ImageEvenement;
+    }
+
+    public function addImageEvenement(ImageEvenement $imageEvenement): static
+    {
+        if (!$this->ImageEvenement->contains($imageEvenement)) {
+            $this->ImageEvenement->add($imageEvenement);
+            $imageEvenement->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImageEvenement(ImageEvenement $imageEvenement): static
+    {
+        if ($this->ImageEvenement->removeElement($imageEvenement)) {
+            // set the owning side to null (unless already changed)
+            if ($imageEvenement->getEvenement() === $this) {
+                $imageEvenement->setEvenement(null);
+            }
+        }
 
         return $this;
     }
