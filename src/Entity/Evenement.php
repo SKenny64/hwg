@@ -61,10 +61,17 @@ class Evenement
     #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'evenement')]
     private Collection $transport;
 
+    #[ORM\ManyToOne(inversedBy: 'evenements')]
+    private ?User $User = null;
+
+    #[ORM\OneToMany(targetEntity: Participation::class, mappedBy: 'evenement')]
+    private Collection $participation;
+
     public function __construct()
     {
         $this->ImageEvenement = new ArrayCollection();
         $this->transport = new ArrayCollection();
+        $this->participation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -282,6 +289,48 @@ class Evenement
             // set the owning side to null (unless already changed)
             if ($transport->getEvenement() === $this) {
                 $transport->setEvenement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): static
+    {
+        $this->User = $User;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Participation>
+     */
+    public function getParticipation(): Collection
+    {
+        return $this->participation;
+    }
+
+    public function addParticipation(Participation $participation): static
+    {
+        if (!$this->participation->contains($participation)) {
+            $this->participation->add($participation);
+            $participation->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(Participation $participation): static
+    {
+        if ($this->participation->removeElement($participation)) {
+            // set the owning side to null (unless already changed)
+            if ($participation->getEvenement() === $this) {
+                $participation->setEvenement(null);
             }
         }
 
