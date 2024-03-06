@@ -47,6 +47,9 @@ class Transport
     #[ORM\ManyToOne(inversedBy: 'transport')]
     private ?Evenement $evenement = null;
 
+    #[ORM\ManyToOne(inversedBy: 'transport')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,6 +183,18 @@ class Transport
     public function setEvenement(?Evenement $evenement): static
     {
         $this->evenement = $evenement;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

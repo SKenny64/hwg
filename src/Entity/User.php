@@ -45,10 +45,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Participation::class, mappedBy: 'user')]
     private Collection $participation;
 
+    #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'user')]
+    private Collection $transport;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
         $this->participation = new ArrayCollection();
+        $this->transport = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,6 +208,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($participation->getUser() === $this) {
                 $participation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transport>
+     */
+    public function getTransport(): Collection
+    {
+        return $this->transport;
+    }
+
+    public function addTransport(Transport $transport): static
+    {
+        if (!$this->transport->contains($transport)) {
+            $this->transport->add($transport);
+            $transport->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransport(Transport $transport): static
+    {
+        if ($this->transport->removeElement($transport)) {
+            // set the owning side to null (unless already changed)
+            if ($transport->getUser() === $this) {
+                $transport->setUser(null);
             }
         }
 
