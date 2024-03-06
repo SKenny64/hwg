@@ -57,6 +57,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: CoordonneesOrganisateur::class, mappedBy: 'user')]
     private Collection $CoordonneesOrganisateur;
 
+    #[ORM\OneToMany(targetEntity: CoordonneesUtilisateur::class, mappedBy: 'user')]
+    private Collection $CoordonneesUtilisateur;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
@@ -65,6 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->reservation = new ArrayCollection();
         $this->adresse = new ArrayCollection();
         $this->CoordonneesOrganisateur = new ArrayCollection();
+        $this->CoordonneesUtilisateur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -340,6 +344,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($coordonneesOrganisateur->getUser() === $this) {
                 $coordonneesOrganisateur->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CoordonneesUtilisateur>
+     */
+    public function getCoordonneesUtilisateur(): Collection
+    {
+        return $this->CoordonneesUtilisateur;
+    }
+
+    public function addCoordonneesUtilisateur(CoordonneesUtilisateur $coordonneesUtilisateur): static
+    {
+        if (!$this->CoordonneesUtilisateur->contains($coordonneesUtilisateur)) {
+            $this->CoordonneesUtilisateur->add($coordonneesUtilisateur);
+            $coordonneesUtilisateur->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoordonneesUtilisateur(CoordonneesUtilisateur $coordonneesUtilisateur): static
+    {
+        if ($this->CoordonneesUtilisateur->removeElement($coordonneesUtilisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($coordonneesUtilisateur->getUser() === $this) {
+                $coordonneesUtilisateur->setUser(null);
             }
         }
 
