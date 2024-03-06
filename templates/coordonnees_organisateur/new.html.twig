@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CoordonneesOrganisateur{% endblock %}
+
+{% block body %}
+    <h1>Create new CoordonneesOrganisateur</h1>
+
+    {{ include('coordonnees_organisateur/_form.html.twig') }}
+
+    <a href="{{ path('app_coordonnees_organisateur_index') }}">back to list</a>
+{% endblock %}
