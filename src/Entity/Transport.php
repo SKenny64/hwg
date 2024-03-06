@@ -41,6 +41,9 @@ class Transport
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $StatutTransport = null;
 
+    #[ORM\ManyToOne(inversedBy: 'transports')]
+    private ?TypeTransport $TypeTransport = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +153,18 @@ class Transport
     public function setStatutTransport(?string $StatutTransport): static
     {
         $this->StatutTransport = $StatutTransport;
+
+        return $this;
+    }
+
+    public function getTypeTransport(): ?TypeTransport
+    {
+        return $this->TypeTransport;
+    }
+
+    public function setTypeTransport(?TypeTransport $TypeTransport): static
+    {
+        $this->TypeTransport = $TypeTransport;
 
         return $this;
     }
