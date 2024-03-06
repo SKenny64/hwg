@@ -50,6 +50,9 @@ class Evenement
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $dateCreation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'evenements')]
+    private ?Categorie $categorie = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,6 +198,18 @@ class Evenement
     public function setDateCreation(?\DateTimeImmutable $dateCreation): static
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
