@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ImageEvenement{% endblock %}
+
+{% block body %}
+    <h1>ImageEvenement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ image_evenement.id }}</td>
+            </tr>
+            <tr>
+                <th>LienPhoto</th>
+                <td>{{ image_evenement.lienPhoto }}</td>
+            </tr>
+            <tr>
+                <th>Couverture</th>
+                <td>{{ image_evenement.couverture ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_image_evenement_index') }}">back to list</a>
+
+    <a href="{{ path('app_image_evenement_edit', {'id': image_evenement.id}) }}">edit</a>
+
+    {{ include('image_evenement/_delete_form.html.twig') }}
+{% endblock %}
