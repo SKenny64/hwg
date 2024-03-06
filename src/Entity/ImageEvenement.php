@@ -19,6 +19,9 @@ class ImageEvenement
     #[ORM\Column(nullable: true)]
     private ?bool $couverture = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ImageEvenement')]
+    private ?Evenement $evenement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class ImageEvenement
     public function setCouverture(?bool $couverture): static
     {
         $this->couverture = $couverture;
+
+        return $this;
+    }
+
+    public function getEvenement(): ?Evenement
+    {
+        return $this->evenement;
+    }
+
+    public function setEvenement(?Evenement $evenement): static
+    {
+        $this->evenement = $evenement;
 
         return $this;
     }

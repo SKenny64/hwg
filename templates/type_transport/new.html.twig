@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypeTransport{% endblock %}
+
+{% block body %}
+    <h1>Create new TypeTransport</h1>
+
+    {{ include('type_transport/_form.html.twig') }}
+
+    <a href="{{ path('app_type_transport_index') }}">back to list</a>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -49,6 +51,21 @@ class Evenement
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $dateCreation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'evenements')]
+    private ?Categorie $categorie = null;
+
+    #[ORM\OneToMany(targetEntity: ImageEvenement::class, mappedBy: 'evenement')]
+    private Collection $ImageEvenement;
+
+    #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'evenement')]
+    private Collection $transport;
+
+    public function __construct()
+    {
+        $this->ImageEvenement = new ArrayCollection();
+        $this->transport = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -195,6 +212,78 @@ class Evenement
     public function setDateCreation(?\DateTimeImmutable $dateCreation): static
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ImageEvenement>
+     */
+    public function getImageEvenement(): Collection
+    {
+        return $this->ImageEvenement;
+    }
+
+    public function addImageEvenement(ImageEvenement $imageEvenement): static
+    {
+        if (!$this->ImageEvenement->contains($imageEvenement)) {
+            $this->ImageEvenement->add($imageEvenement);
+            $imageEvenement->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImageEvenement(ImageEvenement $imageEvenement): static
+    {
+        if ($this->ImageEvenement->removeElement($imageEvenement)) {
+            // set the owning side to null (unless already changed)
+            if ($imageEvenement->getEvenement() === $this) {
+                $imageEvenement->setEvenement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transport>
+     */
+    public function getTransport(): Collection
+    {
+        return $this->transport;
+    }
+
+    public function addTransport(Transport $transport): static
+    {
+        if (!$this->transport->contains($transport)) {
+            $this->transport->add($transport);
+            $transport->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransport(Transport $transport): static
+    {
+        if ($this->transport->removeElement($transport)) {
+            // set the owning side to null (unless already changed)
+            if ($transport->getEvenement() === $this) {
+                $transport->setEvenement(null);
+            }
+        }
 
         return $this;
     }
