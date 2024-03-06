@@ -31,11 +31,11 @@ class TransportType extends AbstractType
             ->add('StatutTransport')
             ->add('TypeTransport', EntityType::class, [
                 'class' => TypeTransport::class,
-                'choice_label' => 'id',
+                'choice_label' => 'libelle_transport',
             ])
             ->add('evenement', EntityType::class, [
                 'class' => Evenement::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom_evenement',
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
