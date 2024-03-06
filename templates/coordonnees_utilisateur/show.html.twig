@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CoordonneesUtilisateur{% endblock %}
+
+{% block body %}
+    <h1>CoordonneesUtilisateur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ coordonnees_utilisateur.id }}</td>
+            </tr>
+            <tr>
+                <th>Civilite</th>
+                <td>{{ coordonnees_utilisateur.civilite }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ coordonnees_utilisateur.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ coordonnees_utilisateur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ coordonnees_utilisateur.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_coordonnees_utilisateur_index') }}">back to list</a>
+
+    <a href="{{ path('app_coordonnees_utilisateur_edit', {'id': coordonnees_utilisateur.id}) }}">edit</a>
+
+    {{ include('coordonnees_utilisateur/_delete_form.html.twig') }}
+{% endblock %}
