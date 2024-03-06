@@ -54,6 +54,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'user')]
     private Collection $adresse;
 
+    #[ORM\OneToMany(targetEntity: CoordonneesOrganisateur::class, mappedBy: 'user')]
+    private Collection $CoordonneesOrganisateur;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
@@ -61,6 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->transport = new ArrayCollection();
         $this->reservation = new ArrayCollection();
         $this->adresse = new ArrayCollection();
+        $this->CoordonneesOrganisateur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -306,6 +310,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($adresse->getUser() === $this) {
                 $adresse->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CoordonneesOrganisateur>
+     */
+    public function getCoordonneesOrganisateur(): Collection
+    {
+        return $this->CoordonneesOrganisateur;
+    }
+
+    public function addCoordonneesOrganisateur(CoordonneesOrganisateur $coordonneesOrganisateur): static
+    {
+        if (!$this->CoordonneesOrganisateur->contains($coordonneesOrganisateur)) {
+            $this->CoordonneesOrganisateur->add($coordonneesOrganisateur);
+            $coordonneesOrganisateur->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoordonneesOrganisateur(CoordonneesOrganisateur $coordonneesOrganisateur): static
+    {
+        if ($this->CoordonneesOrganisateur->removeElement($coordonneesOrganisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($coordonneesOrganisateur->getUser() === $this) {
+                $coordonneesOrganisateur->setUser(null);
             }
         }
 
