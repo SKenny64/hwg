@@ -34,25 +34,4 @@ class TypeTransport
         return $this;
     }
 
-    public function getTransport(): ?Transport
-    {
-        return $this->transport;
-    }
-
-    public function setTransport(?Transport $transport): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($transport === null && $this->transport !== null) {
-            $this->transport->setTypeTransport(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($transport !== null && $transport->getTypeTransport() !== $this) {
-            $transport->setTypeTransport($this);
-        }
-
-        $this->transport = $transport;
-
-        return $this;
-    }
 }

@@ -33,7 +33,18 @@
 						<a class="nav-link active" aria-current="page" href="#">
 							<h1>Accueil</h1>
 						</a>
+						{% if app.user %}
+						<div class="mb-3">
+							{% if app.user.avatar is null %}
+							<img src="{{ asset('imgs/user.png') }}" alt="">
+							{% else %}
+							<img src="{{ app.user.avatar }}" alt="">
+							{% endif %}
+							{{ app.user.userIdentifier }}, <a class="btn btn-outline-info" href="{{ path('app_logout') }}">Logout</a>
+						</div>
+            			{% else %}
 						<a class="btn btn-outline-info" href="{{ path('app_login')}}" type="submit">Se connecter</a>
+						{% endif %}
 					</div>
 				</div>
 			</nav>
@@ -62,7 +73,8 @@
 								</ul>
 							</li>
 						</ul>
-						<a class="nav-link" aria-current="page" href="{{path('app_register')}}">Créer un compte</a>
+						<a class="nav-link" href="/register/user">Créer un compte</a>
+						<a class="nav-link" href="/register/organisateur">Devenir organisateur</a>
 					</div>
 				</div>
 			</nav>

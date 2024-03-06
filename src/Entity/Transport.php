@@ -139,28 +139,4 @@ class Transport
 
         return $this;
     }
-
-    public function getTypeTransport(): ?TypeTransport
-    {
-        return $this->type_transport;
-    }
-
-    public function setTypeTransport(?TypeTransport $type_transport): static
-    {
-        $this->type_transport = $type_transport;
-
-        return $this;
-    }
-
-    public function getEvent(): ?Event
-    {
-        return $this->event;
-    }
-
-    public function setEvent(?Event $event): static
-    {
-        $this->event = $event;
-
-        return $this;
-    }
 }

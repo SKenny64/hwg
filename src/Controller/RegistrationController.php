@@ -26,10 +26,17 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    #[Route('/register/{role}', name: 'app_register')]
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, $role): Response
     {
+
         $user = new User();
+        $routeParameters =  $request->attributes->get('_route_params');
+        if ($routeParameters['role'] === 'user'){
+            $user->setRoles(['ROLE_USER']);
+        } else if ($routeParameters['role'] === 'organisateur') {
+            $user->setRoles(['ROLE_ORGA']);
+        }
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -41,7 +48,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                     )
             );
-            $user->setDateCreationUser(new DateTimeImmutable('now'));
+            $user->setCreatedAt(new DateTimeImmutable('now'));
 
             $entityManager->persist($user);
             $entityManager->flush();
