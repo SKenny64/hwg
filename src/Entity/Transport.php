@@ -148,12 +148,12 @@ class Transport
 
     public function getTypeTransport(): ?TypeTransport
     {
-        return $this->type_transport;
+        return $this->TypeTransport;
     }
 
-    public function setTypeTransport(?TypeTransport $type_transport): static
+    public function setTypeTransport(?TypeTransport $TypeTransport): static
     {
-        $this->type_transport = $type_transport;
+        $this->type_transport = $TypeTransport;
 
         return $this;
     }
