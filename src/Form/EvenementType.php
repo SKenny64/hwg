@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Event\PostSubmitEvent;
 use App\Entity\Categorie;
 use App\Entity\Evenement;
 use App\Entity\User;
@@ -30,18 +32,27 @@ class EvenementType extends AbstractType
             ->add('duree')
             ->add('tarifEvenement')
             ->add('statusEvenement')
-            ->add('dateCreation', null, [
-                'widget' => 'single_text',
-            ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'id',
-            ])
+                ])
             ->add('User', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+                    'class' => User::class,
+                    'choice_label' => 'id',
+                    ])
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
         ;
+    }
+
+    public function attachTimestamps(PostSubmitEvent $event): void
+    {
+        $data = $event->getData();
+        if (!($data instanceof Evenement)) {
+            return;
+        }
+        if (!$data->getId()){
+            $data->setDateCreation(new \DateTimeImmutable());
+        }    
     }
 
     public function configureOptions(OptionsResolver $resolver): void

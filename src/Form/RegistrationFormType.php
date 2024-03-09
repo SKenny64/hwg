@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Event\PostSubmitEvent;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -54,7 +56,7 @@ class RegistrationFormType extends AbstractType
             return;
         }
         if (!$data->getId()){
-            $data->setCreatedAt(new \DateTimeImmutable());
+            $data->setDateCreationUser(new \DateTimeImmutable());
         }    
     }
 
