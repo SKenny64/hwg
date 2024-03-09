@@ -14,10 +14,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    #[Route('/register/{role}', name: 'app_register')]
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, $role): Response
     {
         $user = new User();
+        $routeParameters =  $request->attributes->get('_route_params');
+        if ($routeParameters['role'] === 'user'){
+            $user->setRoles(['ROLE_USER']);
+        } else if ($routeParameters['role'] === 'organisateur') {
+            $user->setRoles(['ROLE_ORGA']);
+        }
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
