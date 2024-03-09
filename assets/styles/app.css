@@ -11965,6 +11965,13 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-body {
-  background-color: skyblue;
+.home-category-list {
+  display: flex;
+  justify-content: center;
+}
+.home-category-list ul {
+  justify-content: space-between;
+  display: flex;
+  list-style: none;
+  padding-inline-start: 0;
 }/*# sourceMappingURL=app.css.map */

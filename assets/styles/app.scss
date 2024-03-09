@@ -1,5 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 
-body {
-    background-color: skyblue;
+.home-category-list {
+    display: flex;
+    justify-content: center;
+    & ul{
+        justify-content: space-between;
+        display: flex;
+        list-style: none;
+        padding-inline-start: 0;
+    }
 }
