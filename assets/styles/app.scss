@@ -10,3 +10,68 @@
         padding-inline-start: 0;
     }
 }
+
+@import "~bootstrap/scss/bootstrap";
+
+%footer-list {
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & img {
+        width: 150px;
+    }
+}
+
+.footer-contact,
+.footer-social {
+    @extend %footer-list;
+    text-align: center;
+
+    & img {
+        width: 30px;
+    }
+}
+
+.footer-nav {
+    @extend %footer-list;
+
+}
+
+.footer-event-box {
+    @extend %footer-list;
+
+    & img {
+        margin: 10px;
+    }
+}
+
+h1 {
+    font-family: "Bungee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 5px;
+}
+
+.btn-category {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background: red;
+    border: 1px solid black;
+}
+
+.category {
+    list-style: none;
+}
+
+.category p {
+    font-family: "Barlow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
