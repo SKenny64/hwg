@@ -43,7 +43,19 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
         ;
+    }
+
+    public function attachTimestamps(PostSubmitEvent $event): void
+    {
+        $data = $event->getData();
+        if (!($data instanceof User)) {
+            return;
+        }
+        if (!$data->getId()){
+            $data->setCreatedAt(new \DateTimeImmutable());
+        }    
     }
 
     public function configureOptions(OptionsResolver $resolver): void
