@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>LienPhoto</th>
+                <th>Image</th>
                 <th>Couverture</th>
                 <th>actions</th>
             </tr>
@@ -18,7 +18,7 @@
         {% for image_evenement in image_evenements %}
             <tr>
                 <td>{{ image_evenement.id }}</td>
-                <td>{{ image_evenement.lienPhoto }}</td>
+                <td><img src="{{ asset('imgs/evenement/' ~ image_evenement.imageName ~ '')  }}" alt="" style="width: 150px"></td>
                 <td>{{ image_evenement.couverture ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('app_image_evenement_show', {'id': image_evenement.id}) }}">show</a>
