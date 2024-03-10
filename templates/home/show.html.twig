@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ evenement.nomEvenement }}{% endblock %}
+
+{% block body %}
+<div class="my-5">
+    <h1>{{ evenement.nomEvenement }}</h1>
+    <p class="fs-4 fw-light">{{ evenement.dateEvenement ? evenement.dateEvenement|format_datetime('full', 'none', locale='fr') : '' }}</p>
+    <div class="couverture d-flex justify-content-center">
+        <img src="{{ asset('imgs/evenement/' ~ image.imageName ~ '')}}">
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>HeureEvenement</th>
+                <td>{{ evenement.heureEvenement ? evenement.heureEvenement|date('H:i') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Descriptif</th>
+                <td>{{ evenement.descriptif }}</td>
+            </tr>
+            <tr>
+                <th>VilleEvenement</th>
+                <td>{{ evenement.villeEvenement }}</td>
+            </tr>
+            <tr>
+                <th>CodePostalEvenement</th>
+                <td>{{ evenement.codePostalEvenement }}</td>
+            </tr>
+            <tr>
+                <th>NomLieu</th>
+                <td>{{ evenement.nomLieu }}</td>
+            </tr>
+            <tr>
+                <th>CapaciteTotal</th>
+                <td>{{ evenement.capaciteTotal }}</td>
+            </tr>
+            <tr>
+                <th>Duree</th>
+                <td>{{ evenement.duree }}</td>
+            </tr>
+            <tr>
+                <th>TarifEvenement</th>
+                <td>{{ evenement.tarifEvenement }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

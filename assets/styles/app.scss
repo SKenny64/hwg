@@ -4,8 +4,9 @@
     display: flex;
     justify-content: center;
     & ul{
-        justify-content: space-between;
+        justify-content: center;
         display: flex;
+        flex-wrap: wrap;
         list-style: none;
         padding-inline-start: 0;
     }
@@ -58,14 +59,6 @@ h1 {
     letter-spacing: 5px;
 }
 
-.btn-category {
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    background: red;
-    border: 1px solid black;
-}
-
 .category {
     list-style: none;
 }
@@ -74,4 +67,15 @@ h1 {
     font-family: "Barlow", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+
+.couverture img{
+    max-width: 650px;
+}
+
+.btn-category{
+    width: 150px;
+    height: 40px;
+    border-radius: 30px;
+    border: 1px solid;
 }

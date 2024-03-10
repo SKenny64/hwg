@@ -21,28 +21,28 @@ class ImageEvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, ImageEvenement::class);
     }
 
-//    /**
-//     * @return ImageEvenement[] Returns an array of ImageEvenement objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return ImageEvenement[] Returns an array of ImageEvenement objects
+    */
+   public function findByCouverture(): array
+   {
+       return $this->createQueryBuilder('i')
+           ->andWhere('i.couverture = :val')
+           ->setParameter('val', true)
+           ->orderBy('i.id', 'ASC')
+           ->setMaxResults(10)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
-//    public function findOneBySomeField($value): ?ImageEvenement
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findEvent($id): ?ImageEvenement
+   {
+       return $this->createQueryBuilder('i')
+           ->andWhere('i.evenement = :val')
+           ->setParameter('val', $id)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
 }
