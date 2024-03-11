@@ -26,6 +26,7 @@ class HomeController extends AbstractController
             ]);
     }
 
+    
     #[Route('/home/{id}', name: 'app_home_show', methods: ['GET'])]
     public function show( 
         $id,
@@ -33,10 +34,25 @@ class HomeController extends AbstractController
     ): Response
     {
         $image = $imageEvenementRepository->findEvent($id);
-        $evenment = $image->getEvenement();
+        $evenement = $image->getEvenement();
         return $this->render('home/show.html.twig', [
             'image' => $image,
-            'evenement' => $evenment
+            'evenement' => $evenement
+        ]);
+    }
+        
+    #[Route('/home/cat/{id}', name: 'app_home_category', methods: ['GET', 'POST'])]
+    public function eventByCategory(
+        $id,
+        ImageEvenementRepository $imageEvenementRepository,
+        CategorieRepository $categorieRepository,
+        EvenementRepository $evenementRepository,
+    ): Response
+    {
+        $images = $imageEvenementRepository->findByCategory($id);
+        return $this->render('home/categorie.html.twig', [
+            'categories' => $categorieRepository->findAll(),
+            'images' => $images
         ]);
     }
 }

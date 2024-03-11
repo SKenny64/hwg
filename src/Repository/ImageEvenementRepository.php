@@ -45,4 +45,15 @@ class ImageEvenementRepository extends ServiceEntityRepository
            ->getOneOrNullResult()
        ;
    }
+
+   public function findByCategory($id): array
+   {
+        return $this->createQueryBuilder('i')
+            ->innerJoin("i.evenement", "e")
+            ->where("e.categorie = :val")
+            ->setParameter('val', $id)
+            // ->addOrderBy('i.dateAjout', 'DESC')
+            ->getQuery()
+            ->getResult();
+   }
 }
