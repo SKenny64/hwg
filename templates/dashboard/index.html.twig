@@ -1,20 +1,140 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/alexi/Documents/isfac/fil rouge/HWG -symfony/here_we_go/src/Controller/DashboardController.php</code></li>
-        <li>Your template at <code>C:/Users/alexi/Documents/isfac/fil rouge/HWG -symfony/here_we_go/templates/dashboard/index.html.twig</code></li>
-    </ul>
+<nav class="navbar bg-body-tertiary dashboard-nav">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Dashboard</span>
+    </div>
+</nav>
+<div class="last-participation my-5">
+    <h2>Dernières  participations :</h2>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>DateParticipation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for participation in participations %}
+            <tr>
+                <td>{{ participation.dateParticipation ? participation.dateParticipation|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_participation_show', {'id': participation.id}) }}">show</a>
+                    <a href="{{ path('app_participation_edit', {'id': participation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
+<div class="last-event my-5">
+    <h2>Derniers évènement organiser :</h2>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Ville</th>
+                <th>Lieu</th>
+                <th>Tarif</th>
+                <th>Status</th>
+                <th>Date de Creation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            {% if evenement.user.id is same as app.user.id %}
+            <tr>
+                <td>{{ evenement.statusEvenement }}</td>
+                <td>{{ evenement.nomEvenement }}</td>
+                <td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
+                <td>{{ evenement.villeEvenement }}</td>
+                <td>{{ evenement.nomLieu }}</td>
+                <td>{{ evenement.tarifEvenement }}</td>
+                <td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}">show</a>
+                    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
+                </td>
+            </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="14">Aucun historique</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="last-reservation my-5">
+    <h2>Dernieres réservation de transport :</h2>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Date de Reservation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
+                    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="last-transport my-5">
+    <h2>Dernier transport proposer</h2>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Statut</th>
+                <th>Tarif</th>
+                <th>Contact</th>
+                <th>Date de Depart</th>
+                <th>Lieu de Depart</th>
+                <th>Place</th>
+                <th>Paiement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transport in transports %}
+            <tr>
+                <td>{{ transport.StatutTransport }}</td>
+                <td>{{ transport.TarifPersonne }}</td>
+                <td>{{ transport.InfoContact }}</td>
+                <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ transport.LieuDepart }}</td>
+                <td>{{ transport.NbPlace }}</td>
+                <td>{{ transport.InfoPaiement }}</td>
+                <td>
+                    <a href="{{ path('app_transport_show', {'id': transport.id}) }}">show</a>
+                    <a href="{{ path('app_transport_edit', {'id': transport.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
