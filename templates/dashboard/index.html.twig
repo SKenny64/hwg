@@ -34,17 +34,18 @@
         </tbody>
     </table>
 </div>
+{% if app.user.roles[0] == "ROLE_ORGA" %}
 <div class="last-event my-5">
     <h2>Derniers évènement organiser :</h2>
     <table class="table">
         <thead class="table-dark">
             <tr>
+                <th>Status</th>
                 <th>Nom</th>
                 <th>Date</th>
                 <th>Ville</th>
                 <th>Lieu</th>
                 <th>Tarif</th>
-                <th>Status</th>
                 <th>Date de Creation</th>
                 <th>actions</th>
             </tr>
@@ -74,6 +75,7 @@
         </tbody>
     </table>
 </div>
+{% endif %}
 <div class="last-reservation my-5">
     <h2>Dernieres réservation de transport :</h2>
     <table class="table">

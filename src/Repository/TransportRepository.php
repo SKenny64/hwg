@@ -21,28 +21,28 @@ class TransportRepository extends ServiceEntityRepository
         parent::__construct($registry, Transport::class);
     }
 
-    //    /**
-    //     * @return Transport[] Returns an array of Transport objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       /**
+        * @return Transport[] Returns an array of Transport objects
+        */
+       public function findByEvents($value): array
+       {
+           return $this->createQueryBuilder('t')
+               ->andWhere('t.evenement = :val')
+               ->setParameter('val', $value)
+               ->orderBy('t.id', 'ASC')
+               ->setMaxResults(10)
+               ->getQuery()
+               ->getResult()
+           ;
+       }
 
-    //    public function findOneBySomeField($value): ?Transport
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findEvent($id): ?Transport
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.evenement = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

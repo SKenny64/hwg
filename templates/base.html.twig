@@ -74,14 +74,14 @@
 						</ul>
 						<a class="nav-link" href="/register/user">Créer un compte</a>
 						<a class="nav-link" href="/register/organisateur">Devenir organisateur</a>
+						<a class="nav-link" href="{{path('app_evenement_new')}}">Créer un évènement</a>
 					</div>
 				</div>
 			</nav>
 		</header>
 		{% if app.user %}
-		<div class="row">
-			<nav class="side-nav col-1">
-				<ul class="nav flex-column sticky-top">
+			<nav class="side-nav">
+				<ul class="nav sticky-top">
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="{{path('app_dashboard')}}">
 							<img src="{{ asset('imgs/baseline-home.svg') }}" class="img-fluid" style="width:50px; height:auto;">
@@ -106,7 +106,6 @@
 					</li>
 				</ul>
 			</nav>
-			<div class="col-11">
 			{% endif %}
 				<div class="container">
 				{% block body %}

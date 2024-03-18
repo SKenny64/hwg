@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ImageEvenementRepository;
+use App\Repository\TransportRepository;
 
 #[Route('/')]
 class HomeController extends AbstractController
@@ -31,13 +32,16 @@ class HomeController extends AbstractController
     public function show( 
         $id,
         ImageEvenementRepository $imageEvenementRepository,
+        TransportRepository  $transportRepository,
     ): Response
     {
         $image = $imageEvenementRepository->findEvent($id);
         $evenement = $image->getEvenement();
+        $transports = $transportRepository->findByEvents($id);
         return $this->render('home/show.html.twig', [
             'image' => $image,
-            'evenement' => $evenement
+            'evenement' => $evenement,
+            'transports' => $transports
         ]);
     }
         
