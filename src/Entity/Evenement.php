@@ -67,6 +67,9 @@ class Evenement
     #[ORM\OneToMany(targetEntity: Participation::class, mappedBy: 'evenement')]
     private Collection $participation;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $adresse = null;
+
     public function __construct()
     {
         $this->ImageEvenement = new ArrayCollection();
@@ -333,6 +336,18 @@ class Evenement
                 $participation->setEvenement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): static
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }
