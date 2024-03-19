@@ -88,13 +88,13 @@ class ParticipationController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_participation_delete', methods: ['POST'])]
-    public function delete(Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
+    public function delete(int $id, Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$participation->getId(), $request->request->get('_token'))) {
             $entityManager->remove($participation);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
     }
 }
