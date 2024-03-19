@@ -1,148 +1,149 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard
+{% endblock %}
 
 {% block body %}
-<nav class="navbar bg-body-tertiary dashboard-nav">
-    <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">Dashboard</span>
-    </div>
-</nav>
-<div class="last-participation my-5">
-    <h2>Dernières  participations :</h2>
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Evenement</th>
-                <th>DateParticipation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for participation in participations %}
-            {% if participation.user.id is same as app.user.id %}
-                <tr>
-                    <td>{{ participation.evenement.nomEvenement }}</td>
-                    <td>{{ participation.dateParticipation ? participation.dateParticipation|date('Y-m-d') : '' }}</td>
-                    <td>
-                        <a href="{{ path('app_participation_show', {'id': participation.id}) }}">show</a>
-                        <a href="{{ path('app_participation_edit', {'id': participation.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% if app.user.roles[0] == "ROLE_ORGA" %}
-<div class="last-event my-5">
-    <h2>Derniers évènement organiser :</h2>
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Status</th>
-                <th>Nom</th>
-                <th>Date</th>
-                <th>Ville</th>
-                <th>Lieu</th>
-                <th>Tarif</th>
-                <th>Date de Creation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for evenement in evenements %}
-            {% if evenement.user.id is same as app.user.id %}
-            <tr>
-                <td>{{ evenement.statusEvenement }}</td>
-                <td>{{ evenement.nomEvenement }}</td>
-                <td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
-                <td>{{ evenement.villeEvenement }}</td>
-                <td>{{ evenement.nomLieu }}</td>
-                <td>{{ evenement.tarifEvenement }}</td>
-                <td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}">show</a>
-                    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
-                </td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="14">Aucun historique</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endif %}
-<div class="last-reservation my-5">
-    <h2>Dernieres réservation de transport :</h2>
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Date de Reservation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reservation in reservations %}
-            <tr>
-                <td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
-                    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-<div class="last-transport my-5">
-    <h2>Dernier transport proposer</h2>
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Statut</th>
-                <th>Tarif</th>
-                <th>Contact</th>
-                <th>Date de Depart</th>
-                <th>Lieu de Depart</th>
-                <th>Place</th>
-                <th>Paiement</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for transport in transports %}
-            {% if transport.user.id is same as app.user.id %}
-                <tr>
-                    <td>{{ transport.StatutTransport }}</td>
-                    <td>{{ transport.TarifPersonne }}</td>
-                    <td>{{ transport.InfoContact }}</td>
-                    <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.LieuDepart }}</td>
-                    <td>{{ transport.NbPlace }}</td>
-                    <td>{{ transport.InfoPaiement }}</td>
-                    <td>
-                        <a href="{{ path('app_transport_show', {'id': transport.id}) }}">show</a>
-                        <a href="{{ path('app_transport_edit', {'id': transport.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% endif %}    
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% endblock %}
+	<nav class="navbar bg-body-tertiary dashboard-nav">
+		<div class="container-fluid">
+			<span class="navbar-brand mb-0 h1">Dashboard</span>
+		</div>
+	</nav>
+	<div class="last-participation my-5">
+		<h2>Dernières  participations :</h2>
+		<table class="table">
+			<thead class="table-dark">
+				<tr>
+					<th>Evenement</th>
+					<th>DateParticipation</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for participation in participations %}
+					{% if participation.user.id is same as app.user.id %}
+						<tr>
+							<td>{{ participation.evenement.nomEvenement }}</td>
+							<td>{{ participation.dateParticipation ? participation.dateParticipation|date('Y-m-d') : '' }}</td>
+							<td>
+								<a href="{{ path('app_home_show', {'id': participation.id}) }}">show</a>
+								<a href="{{ path('app_participation_delete', {'id': participation.id}) }}">Supprimer la participation</a>
+							</td>
+						</tr>
+					{% endif %}
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% if app.user.roles[0] == "ROLE_ORGA" %}
+		<div class="last-event my-5">
+			<h2>Derniers évènement organiser :</h2>
+			<table class="table">
+				<thead class="table-dark">
+					<tr>
+						<th>Status</th>
+						<th>Nom</th>
+						<th>Date</th>
+						<th>Ville</th>
+						<th>Lieu</th>
+						<th>Tarif</th>
+						<th>Date de Creation</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for evenement in evenements %}
+						{% if evenement.user.id is same as app.user.id %}
+							<tr>
+								<td>{{ evenement.statusEvenement }}</td>
+								<td>{{ evenement.nomEvenement }}</td>
+								<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
+								<td>{{ evenement.villeEvenement }}</td>
+								<td>{{ evenement.nomLieu }}</td>
+								<td>{{ evenement.tarifEvenement }}</td>
+								<td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
+								<td>
+									<a href="{{ path('app_evenement_show', {'id': evenement.id}) }}">show</a>
+									<a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
+								</td>
+							</tr>
+						{% endif %}
+					{% else %}
+						<tr>
+							<td colspan="14">Aucun historique</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
+	<div class="last-reservation my-5">
+		<h2>Dernieres réservation de transport :</h2>
+		<table class="table">
+			<thead class="table-dark">
+				<tr>
+					<th>Date de Reservation</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for reservation in reservations %}
+					<tr>
+						<td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d') : '' }}</td>
+						<td>
+							<a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
+							<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="last-transport my-5">
+		<h2>Dernier transport proposer</h2>
+		<table class="table">
+			<thead class="table-dark">
+				<tr>
+					<th>Statut</th>
+					<th>Tarif</th>
+					<th>Contact</th>
+					<th>Date de Depart</th>
+					<th>Lieu de Depart</th>
+					<th>Place</th>
+					<th>Paiement</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for transport in transports %}
+					{% if transport.user.id is same as app.user.id %}
+						<tr>
+							<td>{{ transport.StatutTransport }}</td>
+							<td>{{ transport.TarifPersonne }}</td>
+							<td>{{ transport.InfoContact }}</td>
+							<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+							<td>{{ transport.LieuDepart }}</td>
+							<td>{{ transport.NbPlace }}</td>
+							<td>{{ transport.InfoPaiement }}</td>
+							<td>
+								<a href="{{ path('app_transport_show', {'id': transport.id}) }}">show</a>
+								<a href="{{ path('app_transport_edit', {'id': transport.id}) }}">edit</a>
+							</td>
+						</tr>
+					{% endif %}
+				{% else %}
+					<tr>
+						<td colspan="11">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endblock %}
