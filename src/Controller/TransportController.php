@@ -25,6 +25,8 @@ class TransportController extends AbstractController
     #[Route('/new/{id}', name: 'app_transport_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+        
         $transport = new Transport();
         $id =  $request->attributes->get("id");
         $evenement = $entityManager->getRepository(Evenement::class)->find($id);
@@ -56,6 +58,8 @@ class TransportController extends AbstractController
     #[Route('/{id}/edit', name: 'app_transport_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Transport $transport, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+
         $form = $this->createForm(TransportType::class, $transport);
         $form->handleRequest($request);
 
