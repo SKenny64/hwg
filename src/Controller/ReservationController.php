@@ -26,12 +26,26 @@ class ReservationController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $reservation = new Reservation();
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
+        
+        $transport = $entityManager->getRepository(Transport::class)->find($id);
+        $user = $entityManager->getRepository(User::class)->find($userId);
+        $reservationUser = $reservationRepository->findByUser($user);
+        $reservationEvent = $reservationRepository->findByEvent($evenement);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($reservationUser && $reservationEvent) {
+            $this->addFlash('pas success', 'Vous êtes déjà inscrit');
+            return $this->redirectToRoute('app_home_show', ['id' => $id], Response::HTTP_SEE_OTHER);
+        } else {
+            $reservation->setEvenement($evenement);
+            $reservation->setUser( $user );
+            $reservation->setDatereservation(new \DateTime());
+
             $entityManager->persist($reservation);
             $entityManager->flush();
+            $this->addFlash('success', 'Inscription validé');
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            
+        }
 
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }

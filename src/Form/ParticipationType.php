@@ -9,6 +9,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Event\PostSubmitEvent;
 
 class ParticipationType extends AbstractType
 {
@@ -26,7 +28,19 @@ class ParticipationType extends AbstractType
                 'class' => User::class,
 'choice_label' => 'id',
             ])
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
         ;
+    }
+
+    public function attachTimestamps(PostSubmitEvent $event): void
+    {
+        $data = $event->getData();
+        if (!($data instanceof Evenement)) {
+            return;
+        }
+        if (!$data->getId()){
+            $data->setDateCreation(new \DateTimeImmutable());
+        }    
     }
 
     public function configureOptions(OptionsResolver $resolver): void
