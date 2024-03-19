@@ -32,8 +32,9 @@ class EvenementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($evenement);
             $entityManager->flush();
+            $id = $evenement->getId();
 
-            return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_image_evenement_new', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('evenement/new.html.twig', [

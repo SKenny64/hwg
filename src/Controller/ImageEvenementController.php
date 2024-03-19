@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\Evenement;
 
 #[Route('/image/evenement')]
 class ImageEvenementController extends AbstractController
@@ -22,10 +23,13 @@ class ImageEvenementController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_image_evenement_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{id}', name: 'app_image_evenement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $imageEvenement = new ImageEvenement();
+        $id =  $request->attributes->get("id");
+        $evenement = $entityManager->getRepository(Evenement::class)->find($id);
+        $imageEvenement->setEvenement($evenement);
         $form = $this->createForm(ImageEvenementType::class, $imageEvenement);
         $form->handleRequest($request);
 
@@ -33,7 +37,7 @@ class ImageEvenementController extends AbstractController
             $entityManager->persist($imageEvenement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_image_evenement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home_show', ['id' => $imageEvenement->getEvenement()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('image_evenement/new.html.twig', [

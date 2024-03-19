@@ -41,7 +41,7 @@
 							{% endif %}
 							{{ app.user.userIdentifier }}, <a class="btn btn-outline-info" href="{{ path('app_logout') }}">Logout</a>
 						</div>
-            			{% else %}
+						{% else %}
 						<a class="btn btn-outline-info" href="{{ path('app_login')}}" type="submit">Se connecter</a>
 						{% endif %}
 					</div>
@@ -74,16 +74,47 @@
 						</ul>
 						<a class="nav-link" href="/register/user">Créer un compte</a>
 						<a class="nav-link" href="/register/organisateur">Devenir organisateur</a>
+						<a class="nav-link" href="{{path('app_evenement_new')}}">Créer un évènement</a>
 					</div>
 				</div>
 			</nav>
 		</header>
-        <div class="container">
-		{% block body %}
-        {% endblock %}
-        </div>
+		{% if app.user %}
+			<nav class="side-nav">
+				<ul class="nav sticky-top">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{path('app_dashboard')}}">
+							<img src="{{ asset('imgs/baseline-home.svg') }}" class="img-fluid" style="width:50px; height:auto;">
+							Dashboard
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<img src="{{ asset('imgs/event-sharp.svg') }}" class="img-fluid" style="width:50px; height:auto;">
+							evenement
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled" aria-disabled="true">
+
+						</a>
+					</li>
+				</ul>
+			</nav>
+			{% endif %}
+				<div class="container">
+				{% block body %}
+				{% endblock %}
+				</div>
+			</div>
+		</div>
 		<footer class="text-bg-dark">
-			<div class="container mt-5">
+			<div class="container">
 				<div class="row gy-4">
 					<div class="footer-logo col-lg-3">
 						<img src="{{ asset('imgs/logo.png') }}" alt="#">
