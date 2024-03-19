@@ -12,10 +12,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\SecurityBundle\Security;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
 {
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
     public function index(ReservationRepository $reservationRepository): Response
     {
@@ -24,21 +33,22 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
+    #[Route('/new/{id}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
+    public function new(int $id, Request $request, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
         $reservation = new Reservation();
         
+        $userId = $this->security->getUser()->getId();
         $transport = $entityManager->getRepository(Transport::class)->find($id);
         $user = $entityManager->getRepository(User::class)->find($userId);
         $reservationUser = $reservationRepository->findByUser($user);
-        $reservationEvent = $reservationRepository->findByEvent($evenement);
+        $reservationEvent = $reservationRepository->findByTransport($transport);
 
         if($reservationUser && $reservationEvent) {
             $this->addFlash('pas success', 'Vous êtes déjà inscrit');
             return $this->redirectToRoute('app_home_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
-            $reservation->setEvenement($evenement);
+            $reservation->setTransport($transport);
             $reservation->setUser( $user );
             $reservation->setDatereservation(new \DateTime());
 
