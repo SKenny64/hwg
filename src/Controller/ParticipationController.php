@@ -38,9 +38,11 @@ class ParticipationController extends AbstractController
         $routeParameters =  $request->attributes->get('_route_params');
 
         $user = $this->security->getUser();
+        $userId = $user->getId();
+        
 
         if ($user) {
-            dd($user);
+            dd($userId);
         } else {
             // User is not logged in
         }
