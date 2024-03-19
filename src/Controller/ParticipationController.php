@@ -10,10 +10,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\SecurityBundle\Security;
 
 #[Route('/participation')]
 class ParticipationController extends AbstractController
 {
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/', name: 'app_participation_index', methods: ['GET'])]
     public function index(ParticipationRepository $participationRepository): Response
     {
@@ -22,10 +31,23 @@ class ParticipationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_participation_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{id}', name: 'app_participation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $participation = new Participation();
+        $routeParameters =  $request->attributes->get('_route_params');
+
+        $user = $this->security->getUser();
+
+        if ($user) {
+            dd($user);
+        } else {
+            // User is not logged in
+        }
+    
+        // ...
+
+
         $form = $this->createForm(ParticipationType::class, $participation);
         $form->handleRequest($request);
 
