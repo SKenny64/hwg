@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Reservation;
+use App\Entity\Transport;
+use App\Entity\User;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +25,7 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
         $reservation = new Reservation();
         
@@ -47,13 +49,6 @@ class ReservationController extends AbstractController
             
         }
 
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('reservation/new.html.twig', [
-            'reservation' => $reservation,
-            'form' => $form,
-        ]);
     }
 
     #[Route('/{id}', name: 'app_reservation_show', methods: ['GET'])]
