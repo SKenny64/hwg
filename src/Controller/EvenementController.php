@@ -25,6 +25,7 @@ class EvenementController extends AbstractController
     #[Route('/new', name: 'app_evenement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ORGA');
         $evenement = new Evenement();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
@@ -54,6 +55,7 @@ class EvenementController extends AbstractController
     #[Route('/{id}/edit', name: 'app_evenement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ORGA');
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
