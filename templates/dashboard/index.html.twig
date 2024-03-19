@@ -13,19 +13,23 @@
     <table class="table">
         <thead class="table-dark">
             <tr>
+                <th>Evenement</th>
                 <th>DateParticipation</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for participation in participations %}
-            <tr>
-                <td>{{ participation.dateParticipation ? participation.dateParticipation|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_participation_show', {'id': participation.id}) }}">show</a>
-                    <a href="{{ path('app_participation_edit', {'id': participation.id}) }}">edit</a>
-                </td>
-            </tr>
+            {% if participation.user.id is same as app.user.id %}
+                <tr>
+                    <td>{{ participation.evenement.nomEvenement }}</td>
+                    <td>{{ participation.dateParticipation ? participation.dateParticipation|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_participation_show', {'id': participation.id}) }}">show</a>
+                        <a href="{{ path('app_participation_edit', {'id': participation.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>
@@ -119,19 +123,21 @@
         </thead>
         <tbody>
         {% for transport in transports %}
-            <tr>
-                <td>{{ transport.StatutTransport }}</td>
-                <td>{{ transport.TarifPersonne }}</td>
-                <td>{{ transport.InfoContact }}</td>
-                <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ transport.LieuDepart }}</td>
-                <td>{{ transport.NbPlace }}</td>
-                <td>{{ transport.InfoPaiement }}</td>
-                <td>
-                    <a href="{{ path('app_transport_show', {'id': transport.id}) }}">show</a>
-                    <a href="{{ path('app_transport_edit', {'id': transport.id}) }}">edit</a>
-                </td>
-            </tr>
+            {% if transport.user.id is same as app.user.id %}
+                <tr>
+                    <td>{{ transport.StatutTransport }}</td>
+                    <td>{{ transport.TarifPersonne }}</td>
+                    <td>{{ transport.InfoContact }}</td>
+                    <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ transport.LieuDepart }}</td>
+                    <td>{{ transport.NbPlace }}</td>
+                    <td>{{ transport.InfoPaiement }}</td>
+                    <td>
+                        <a href="{{ path('app_transport_show', {'id': transport.id}) }}">show</a>
+                        <a href="{{ path('app_transport_edit', {'id': transport.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endif %}    
         {% else %}
             <tr>
                 <td colspan="11">no records found</td>

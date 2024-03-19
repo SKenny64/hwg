@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participation;
+use App\Entity\Evenement;
 use App\Form\ParticipationType;
 use App\Repository\ParticipationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\User;
 
 #[Route('/participation')]
 class ParticipationController extends AbstractController
@@ -32,36 +34,31 @@ class ParticipationController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_participation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(int $id, Request $request, EntityManagerInterface $entityManager, ParticipationRepository $participationRepository): Response
     {
         $participation = new Participation();
-        $routeParameters =  $request->attributes->get('_route_params');
 
-        $user = $this->security->getUser();
+        
+        $userId = $this->security->getUser()->getId();
+        $evenement = $entityManager->getRepository(Evenement::class)->find($id);
+        $user = $entityManager->getRepository(User::class)->find($userId);
+        $participationUser = $participationRepository->findByUser($user);
+        $participationEvent = $participationRepository->findByEvent($evenement);
 
-        if ($user) {
-            dd($user);
+        if($participationUser && $participationEvent) {
+            $this->addFlash('pas success', 'Vous êtes déjà inscrit');
+            return $this->redirectToRoute('app_home_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
-            // User is not logged in
-        }
-    
-        // ...
+            $participation->setEvenement($evenement);
+            $participation->setUser( $user );
+            $participation->setDateParticipation(new \DateTime());
 
-
-        $form = $this->createForm(ParticipationType::class, $participation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($participation);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Inscription validé');
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            
         }
-
-        return $this->render('participation/new.html.twig', [
-            'participation' => $participation,
-            'form' => $form,
-        ]);
     }
 
     #[Route('/{id}', name: 'app_participation_show', methods: ['GET'])]

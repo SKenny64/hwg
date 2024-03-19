@@ -21,20 +21,31 @@ class ParticipationRepository extends ServiceEntityRepository
         parent::__construct($registry, Participation::class);
     }
 
-//    /**
-//     * @return Participation[] Returns an array of Participation objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Participation[] Returns an array of Participation objects
+    */
+   public function findByUser($value): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.user = :val')
+           ->setParameter('val', $value)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+      /**
+    * @return Participation[] Returns an array of Participation objects
+    */
+    public function findByEvent($value): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.evenement = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Participation
 //    {

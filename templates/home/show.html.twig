@@ -2,6 +2,11 @@
 {% block title %}{{ evenement.nomEvenement }}{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('pas success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 <div class="my-5">
     <h1>{{ evenement.nomEvenement }}</h1>
     <p class="fs-4 fw-light">{{ evenement.dateEvenement ? evenement.dateEvenement|format_datetime('full', 'none', locale='fr') : '' }}</p>
