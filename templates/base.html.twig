@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!{% endblock %}
+			{% block title %}Welcome!
+			{% endblock %}
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,16 +34,17 @@
 							<h1>Accueil</h1>
 						</a>
 						{% if app.user %}
-						<div class="mb-3">
-							{% if app.user.avatar is null %}
-							<img src="{{ asset('imgs/user.png') }}" alt="">
-							{% else %}
-							<img src="{{ app.user.avatar }}" alt="">
-							{% endif %}
-							{{ app.user.userIdentifier }}, <a class="btn btn-outline-info" href="{{ path('app_logout') }}">Logout</a>
-						</div>
+							<div class="mb-3">
+								{% if app.user.avatar is null %}
+									<img src="{{ asset('imgs/user.png') }}" alt="">
+								{% else %}
+									<img src="{{ app.user.avatar }}" alt="">
+								{% endif %}
+								{{ app.user.userIdentifier }}
+								<a class="btn btn-outline-info" href="{{ path('app_logout') }}">Logout</a>
+							</div>
 						{% else %}
-						<a class="btn btn-outline-info" href="{{ path('app_login')}}" type="submit">Se connecter</a>
+							<a class="btn btn-outline-info" href="{{ path('app_login')}}" type="submit">Se connecter</a>
 						{% endif %}
 					</div>
 				</div>
@@ -95,86 +97,77 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">
-
-						</a>
+						<a class="nav-link" href="#"></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link disabled" aria-disabled="true">
-
-						</a>
+						<a class="nav-link disabled" aria-disabled="true"></a>
 					</li>
 				</ul>
 			</nav>
-			{% endif %}
-				<div class="container">
-				{% block body %}
-				{% endblock %}
-				</div>
+		{% endif %}
+		<div class="container"> {% block body %}{% endblock %}
 			</div>
+		</body>
+	</html>
+</div></div><footer class="text-bg-dark">
+<div class="container">
+	<div class="row gy-4">
+		<div class="footer-logo col-lg-3">
+			<img src="{{ asset('imgs/logo.png') }}" alt="#">
+			<ul class="footer-contact">
+				<li>Adresse</li>
+				<li>Téléphone</li>
+				<li>Mail</li>
+			</ul>
+			<ul class="footer-social d-flex justify-content-between">
+				<li>
+					<a href="#"><img src="http://placehold.co/30x30"></a>
+				</li>
+				<li>
+					<a href="#"><img src="http://placehold.co/30x30"></a>
+				</li>
+				<li>
+					<a href="#"><img src="http://placehold.co/30x30"></a>
+				</li>
+			</ul>
 		</div>
-		<footer class="text-bg-dark">
-			<div class="container">
-				<div class="row gy-4">
-					<div class="footer-logo col-lg-3">
-						<img src="{{ asset('imgs/logo.png') }}" alt="#">
-						<ul class="footer-contact">
-							<li>Adresse</li>
-							<li>Téléphone</li>
-							<li>Mail</li>
-						</ul>
-						<ul class="footer-social d-flex justify-content-between">
-							<li>
-								<a href="#"><img src="http://placehold.co/30x30"></a>
-							</li>
-							<li>
-								<a href="#"><img src="http://placehold.co/30x30"></a>
-							</li>
-							<li>
-								<a href="#"><img src="http://placehold.co/30x30"></a>
-							</li>
-						</ul>
-					</div>
-					<div class="col-lg-3">
-						<h1>Navigation</h1>
-						<ul class="footer-nav">
-							<li>
-								<a href="#">Lien nav</a>
-							</li>
-							<li>
-								<a href="#">Lien nav</a>
-							</li>
-							<li>
-								<a href="#">Lien nav</a>
-							</li>
-							<li>
-								<a href="#">Lien nav</a>
-							</li>
-						</ul>
-					</div>
-					<div class="footer-about col-lg-3">
-						<h1>Qui sommes-nous?</h1>
-						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt quae sapiente officia earum? Quia ea modi nostrum ad libero et corporis quisquam eius, nemo vel! Itaque delectus similique voluptatum temporibus!</p>
-					</div>
-					<div class="footer-event col-lg-3">
-						<h1>à découvrir</h1>
-						<ul class="footer-event-box d-flex flex-wrap">
-							<li>
-								<a href="#"><img src="{{ absolute_url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK6c34VhXvxEpsH0wG1WQHdR3tk89ZTCK4MhDfLfqrCw&s')}}" alt="Instagram 01"></a>
-							</li>
-							<li>
-								<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 02"></a>
-							</li>
-							<li>
-								<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 03"></a>
-							</li>
-							<li>
-								<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 04"></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</footer>
-	</body>
-</html>
+		<div class="col-lg-3">
+			<h1>Navigation</h1>
+			<ul class="footer-nav">
+				<li>
+					<a href="#">Lien nav</a>
+				</li>
+				<li>
+					<a href="#">Lien nav</a>
+				</li>
+				<li>
+					<a href="#">Lien nav</a>
+				</li>
+				<li>
+					<a href="#">Lien nav</a>
+				</li>
+			</ul>
+		</div>
+		<div class="footer-about col-lg-3">
+			<h1>Qui sommes-nous?</h1>
+			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt quae sapiente officia earum? Quia ea modi nostrum ad libero et corporis quisquam eius, nemo vel! Itaque delectus similique voluptatum temporibus!</p>
+		</div>
+		<div class="footer-event col-lg-3">
+			<h1>à découvrir</h1>
+			<ul class="footer-event-box d-flex flex-wrap">
+				<li>
+					<a href="#"><img src="{{ absolute_url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK6c34VhXvxEpsH0wG1WQHdR3tk89ZTCK4MhDfLfqrCw&s')}}" alt="Instagram 01"></a>
+				</li>
+				<li>
+					<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 02"></a>
+				</li>
+				<li>
+					<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 03"></a>
+				</li>
+				<li>
+					<a href="#"><img src="http://placehold.co/85x85" alt="Instagram 04"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div></footer></body></html>
