@@ -32,21 +32,41 @@ class EvenementType extends AbstractType
         $role = $this->security->getUser()->getRoles();
 
         $builder
-            ->add('nomEvenement')
+            ->add('nomEvenement', null, [
+                'label' =>  "Nom de l'événement",
+            ])
             ->add('dateEvenement', null, [
+                'label' => 'Date de l\'événement',
                 'widget' => 'single_text',
             ])
             ->add('heureEvenement', null, [
+                'label' =>  'Heure de l\'événement',
                 'widget' => 'single_text',
             ])
-            ->add('descriptif')
-            ->add('villeEvenement')
-            ->add('codePostalEvenement')
-            ->add('adresse')
-            ->add('nomLieu')
-            ->add('capaciteTotal')
-            ->add('duree')
-            ->add('tarifEvenement');
+            ->add('descriptif', null, [
+                'label' =>  'Description de l\'événement',
+            ])
+            ->add('villeEvenement', null, [
+                'label' =>  'Ville de l\'événement',
+            ])
+            ->add('codePostalEvenement', null, [
+                'label' => 'Code postal de l\'événement',
+            ])
+            ->add('adresse', null, [
+                'label' => 'Adresse'
+            ])
+            ->add('nomLieu', null, [
+                'label' => 'Nom du lieu',
+            ])
+            ->add('capaciteTotal', null, [
+                'label' => 'Capacité totale (en nombre de personnes)'
+            ])
+            ->add('duree', null, [
+                'label' => 'Durée en minutes'
+            ])
+            ->add('tarifEvenement', null, [
+                'label' => 'Tarif de l\'entrée',
+            ]);
 
             if ($role[0] === 'ROLE_ADMIN') {
                 $builder->add('statusEvenement', ChoiceType::class, [
