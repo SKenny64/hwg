@@ -1,94 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin - Back Office{% endblock %}
+{% block title %}Admin - Back Office
+{% endblock %}
 
 {% block body %}
-<h1>Dashboard admin</h1>
-{{ include('admin/nav-admin.html.twig') }}
-<div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h2>Evènements en attente de validation</h2>
-    <div class="overflow-y-auto" style="height: 350px">
-        <table class="table">
-            <thead class="table-dark sticky-top">
-                <tr>
-                    <th>Status</th>
-                    <th>Nom</th>
-                    <th>Date</th>
-                    <th>Ville</th>
-                    <th>Lieu</th>
-                    <th>Tarif</th>
-                    <th>Date de Creation</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for evenement in evenements %}
-                {% if evenement.statusEvenement == 'En attente de validation' %}
-                <tr>
-                    <td>
-                        <span class="btn btn-secondary">{{ evenement.statusEvenement }}</span>
-                    </td>
-                    <td>{{ evenement.nomEvenement }}</td>
-                    <td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
-                    <td>{{ evenement.villeEvenement }}</td>
-                    <td>{{ evenement.nomLieu }}</td>
-                    <td>{{ evenement.tarifEvenement }} €</td>
-                    <td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
-                    <td>
-                        <a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
-                        <a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': evenement.id}) }}">modifier</a>
-                    </td>
-                </tr>
-                {% endif %}
-            {% else %}
-                <tr>
-                    <td colspan="14">Aucun historique</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h2>Evènements validés</h2>
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Status</th>
-                <th>Nom</th>
-                <th>Date</th>
-                <th>Ville</th>
-                <th>Lieu</th>
-                <th>Tarif</th>
-                <th>Date de Creation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for evenement in evenements %}
-            {% if evenement.statusEvenement == 'Validé' %}
-            <tr>
-                <td>
-                    <span class="btn btn-success">{{ evenement.statusEvenement }}</span>
-                </td>
-                <td>{{ evenement.nomEvenement }}</td>
-                <td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
-                <td>{{ evenement.villeEvenement }}</td>
-                <td>{{ evenement.nomLieu }}</td>
-                <td>{{ evenement.tarifEvenement }} €</td>
-                <td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
-                    <a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': evenement.id}) }}">modifier</a>
-                </td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="14">Aucun historique</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+	<h1 class="my-5">Dashboard admin</h1>
+	{{ include('admin/nav-admin.html.twig') }}
+	<div class="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+		<h2>Evènements en attente de validation</h2>
+		<div class="overflow-y-auto" style="height: 350px">
+			<table class="table">
+				<thead class="table-dark sticky-top">
+					<tr>
+						<th>Status</th>
+						<th>Nom</th>
+						<th>Date</th>
+						<th>Ville</th>
+						<th>Lieu</th>
+						<th>Tarif</th>
+						<th>Date de Creation</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for evenement in evenements %}
+						{% if evenement.statusEvenement == 'En attente de validation' %}
+							<tr>
+								<td>
+									<span class="btn btn-secondary">{{ evenement.statusEvenement }}</span>
+								</td>
+								<td>{{ evenement.nomEvenement }}</td>
+								<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
+								<td>{{ evenement.villeEvenement }}</td>
+								<td>{{ evenement.nomLieu }}</td>
+								<td>{{ evenement.tarifEvenement }}
+									€</td>
+								<td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
+								<td>
+									<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
+									<a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': evenement.id}) }}">modifier</a>
+								</td>
+							</tr>
+						{% endif %}
+					{% else %}
+						<tr>
+							<td colspan="14">Aucun historique</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+		<h2>Evènements validés</h2>
+		<table class="table">
+			<thead class="table-dark">
+				<tr>
+					<th>Status</th>
+					<th>Nom</th>
+					<th>Date</th>
+					<th>Ville</th>
+					<th>Lieu</th>
+					<th>Tarif</th>
+					<th>Date de Creation</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for evenement in evenements %}
+					{% if evenement.statusEvenement == 'Validé' %}
+						<tr>
+							<td>
+								<span class="btn btn-success">{{ evenement.statusEvenement }}</span>
+							</td>
+							<td>{{ evenement.nomEvenement }}</td>
+							<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
+							<td>{{ evenement.villeEvenement }}</td>
+							<td>{{ evenement.nomLieu }}</td>
+							<td>{{ evenement.tarifEvenement }}
+								€</td>
+							<td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
+							<td>
+								<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
+								<a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': evenement.id}) }}">modifier</a>
+							</td>
+						</tr>
+					{% endif %}
+				{% else %}
+					<tr>
+						<td colspan="14">Aucun historique</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}
