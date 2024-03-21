@@ -1,138 +1,140 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ evenement.nomEvenement }}{% endblock %}
+{% block title %}
+	{{ evenement.nomEvenement }}
+{% endblock %}
 
 {% block body %}
-{% for message in app.flashes('pas success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-<div class="my-5">
-    <h1>{{ evenement.nomEvenement }}</h1>
-    <p class="fs-4 fw-light">{{ evenement.dateEvenement ? evenement.dateEvenement|format_datetime('full', 'none', locale='fr') : '' }}</p>
-    <div class="couverture d-flex justify-content-center">
-        <img src="{{ asset('imgs/evenement/' ~ image.imageName ~ '')}}">
-    </div>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>HeureEvenement</th>
-                <td>{{ evenement.heureEvenement ? evenement.heureEvenement|date('H:i') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Descriptif</th>
-                <td>{{ evenement.descriptif }}</td>
-            </tr>
-            <tr>
-                <th>VilleEvenement</th>
-                <td>{{ evenement.villeEvenement }}</td>
-            </tr>
-            <tr>
-                <th>CodePostalEvenement</th>
-                <td>{{ evenement.codePostalEvenement }}</td>
-            </tr>
-            <tr>
-                <th>Adress</th>
-                <td>{{ evenement.adresse }}</td>
-            </tr>
-            <tr>
-                <th>NomLieu</th>
-                <td>{{ evenement.nomLieu }}</td>
-            </tr>
-            <tr>
-                <th>CapaciteTotal</th>
-                <td>{{ evenement.capaciteTotal }}</td>
-            </tr>
-            <tr>
-                <th>Duree</th>
-                <td>{{ evenement.duree }}</td>
-            </tr>
-            <tr>
-                <th>TarifEvenement</th>
-                <td>{{ evenement.tarifEvenement }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <h2>Transport disponible pour l'évènement</h2>
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Tarif</th>
-                <th>Place</th>
-                <th>Contact</th>
-                <th>Date de Depart</th>
-                <th>Lieu de Depart</th>
-                <th>Paiement</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for transport in transports %}
-            <tr>
-                <td>{{ transport.TarifPersonne }}</td>
-                <td>{{ transport.NbPlace }}</td>
-                <td>{{ transport.InfoContact }}</td>
-                <td>{{ transport.DateDepart ? transport.DateDepart|date('d-m-Y H:i:s') : '' }}</td>
-                <td>{{ transport.LieuDepart }}</td>
-                <td>{{ transport.InfoPaiement }}</td>
-                <td>
-                    {# <a href="{{ path('app_transport_show', {'id': transport.id}) }}">show</a> #}
-                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas{{ transport.id }}" aria-controls="offcanvasRight">Détails</button>
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas{{ transport.id }}" aria-labelledby="offcanvasRightLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasRightLabel">Détail du transport</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <th>TarifPersonne</th>
-                                        <td>{{ transport.TarifPersonne }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Descriptif</th>
-                                        <td>{{ transport.descriptif }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>InfoContact</th>
-                                        <td>{{ transport.InfoContact }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>DateDepart</th>
-                                        <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>DateCreation</th>
-                                        <td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>LieuDepart</th>
-                                        <td>{{ transport.LieuDepart }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>NbPlace</th>
-                                        <td>{{ transport.NbPlace }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>InfoPaiement</th>
-                                        <td>{{ transport.InfoPaiement }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="{{ path('app_reservation_new', {'id': transport.id})}}" class="btn btn-success">Réserver</a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">Aucun moyen de transport dispo pour le moment</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path('app_transport_new', {'id': evenement.id}) }}" class="btn btn-primary">Proposer un moyen de transport</a>
-    <a href="{{ path('app_participation_new', {'id': evenement.id}) }}" class="btn btn-success">Inscription</a>
-</div>
+	{% for message in app.flashes('pas success') %}
+		<div class="alert alert-success">
+			{{ message }}
+		</div>
+	{% endfor %}
+	<div class="my-5">
+		<h1>{{ evenement.nomEvenement }}</h1>
+		<p class="fs-4 fw-light">{{ evenement.dateEvenement ? evenement.dateEvenement|format_datetime('full', 'none', locale='fr') : '' }}</p>
+		<div class="couverture d-flex justify-content-center">
+			<img src="{{ asset('imgs/evenement/' ~ image.imageName ~ '')}}">
+		</div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Heure de début</th>
+					<td>{{ evenement.heureEvenement ? evenement.heureEvenement|date('H:i') : '' }}</td>
+				</tr>
+				<tr>
+					<th>Descriptif</th>
+					<td>{{ evenement.descriptif }}</td>
+				</tr>
+				<tr>
+					<th>Ville</th>
+					<td>{{ evenement.villeEvenement }}</td>
+				</tr>
+				<tr>
+					<th>Code Postal</th>
+					<td>{{ evenement.codePostalEvenement }}</td>
+				</tr>
+				<tr>
+					<th>Adresse</th>
+					<td>{{ evenement.adresse }}</td>
+				</tr>
+				<tr>
+					<th>Nom du Lieu</th>
+					<td>{{ evenement.nomLieu }}</td>
+				</tr>
+				<tr>
+					<th>Capacite totale</th>
+					<td>{{ evenement.capaciteTotal }}</td>
+				</tr>
+				<tr>
+					<th>Durée</th>
+					<td>{{ evenement.duree }}</td>
+				</tr>
+				<tr>
+					<th>Tarif de l'évenement</th>
+					<td>{{ evenement.tarifEvenement }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2>Transport disponible pour l'évènement</h2>
+		<table class="table">
+			<thead class="table-dark">
+				<tr>
+					<th>Tarif</th>
+					<th>Place</th>
+					<th>Contact</th>
+					<th>Date de Depart</th>
+					<th>Lieu de Depart</th>
+					<th>Paiement</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for transport in transports %}
+					<tr>
+						<td>{{ transport.TarifPersonne }}</td>
+						<td>{{ transport.NbPlace }}</td>
+						<td>{{ transport.InfoContact }}</td>
+						<td>{{ transport.DateDepart ? transport.DateDepart|date('d-m-Y H:i:s') : '' }}</td>
+						<td>{{ transport.LieuDepart }}</td>
+						<td>{{ transport.InfoPaiement }}</td>
+						<td>
+							{# <a href="{{ path('app_transport_show', {'id': transport.id}) }}">show</a> #}
+							<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas{{ transport.id }}" aria-controls="offcanvasRight">Détails</button>
+							<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas{{ transport.id }}" aria-labelledby="offcanvasRightLabel">
+								<div class="offcanvas-header">
+									<h5 class="offcanvas-title" id="offcanvasRightLabel">Détail du transport</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+								</div>
+								<div class="offcanvas-body">
+									<table class="table">
+										<tbody>
+											<tr>
+												<th>TarifPersonne</th>
+												<td>{{ transport.TarifPersonne }}</td>
+											</tr>
+											<tr>
+												<th>Descriptif</th>
+												<td>{{ transport.descriptif }}</td>
+											</tr>
+											<tr>
+												<th>InfoContact</th>
+												<td>{{ transport.InfoContact }}</td>
+											</tr>
+											<tr>
+												<th>DateDepart</th>
+												<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+											</tr>
+											<tr>
+												<th>DateCreation</th>
+												<td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
+											</tr>
+											<tr>
+												<th>LieuDepart</th>
+												<td>{{ transport.LieuDepart }}</td>
+											</tr>
+											<tr>
+												<th>NbPlace</th>
+												<td>{{ transport.NbPlace }}</td>
+											</tr>
+											<tr>
+												<th>InfoPaiement</th>
+												<td>{{ transport.InfoPaiement }}</td>
+											</tr>
+										</tbody>
+									</table>
+									<a href="{{ path('app_reservation_new', {'id': transport.id})}}" class="btn btn-success">Réserver</a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="11">Aucun moyen de transport dispo pour le moment</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href="{{ path('app_transport_new', {'id': evenement.id}) }}" class="btn btn-primary">Proposer un moyen de transport</a>
+		<a href="{{ path('app_participation_new', {'id': evenement.id}) }}" class="btn btn-success">Inscription</a>
+	</div>
 {% endblock %}

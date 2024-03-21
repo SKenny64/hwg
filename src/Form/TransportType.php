@@ -28,18 +28,43 @@ class TransportType extends AbstractType
         $role = $this->security->getUser()->getRoles();
         
         $builder
-            ->add('TarifPersonne')
-            ->add('descriptif')
-            ->add('InfoContact')
+            ->add('TarifPersonne', null, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('descriptif', null, [
+                'attr' => [
+                    'class' => 'form-control',
+                ]
+            ])
+            ->add('InfoContact', null, [
+                'attr' => [
+                    'class' => 'form-control',
+                ]
+            ])
             ->add('DateDepart', null, [
                 'widget' => 'single_text',
             ])
             ->add('DateCreation', null, [
                 'widget' => 'single_text',
             ])
-            ->add('LieuDepart')
-            ->add('NbPlace')
-            ->add('InfoPaiement')
+            ->add('LieuDepart', null, [
+                'attr' => [
+                'label' => "Lieu de départ",
+                'class' => 'form-control',
+                ]
+            ])
+            ->add('NbPlace', null, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('InfoPaiement', null, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('StatutTransport')
             ->add('TypeTransport', EntityType::class, [
                 'class' => TypeTransport::class,
