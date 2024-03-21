@@ -4,41 +4,59 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="my-5">Dashboard admin</h1>
+	<h1>Dashboard admin</h1>
 	{{ include('admin/nav-admin.html.twig') }}
 	<div class="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 		<h2>Evènements en attente de validation</h2>
 		<div class="overflow-y-auto" style="height: 350px">
-			<table class="table">
-				<thead class="table-dark sticky-top">
+			<table class="table table-sm">
+				<thead class="table-dark sticky-top z-2">
 					<tr>
 						<th>Status</th>
 						<th>Nom</th>
 						<th>Date</th>
 						<th>Ville</th>
-						<th>Lieu</th>
 						<th>Tarif</th>
+						<th>Image</th>
 						<th>Date de Creation</th>
 						<th>actions</th>
 					</tr>
 				</thead>
-				<tbody>
-					{% for evenement in evenements %}
-						{% if evenement.statusEvenement == 'En attente de validation' %}
+				<tbody class="fs-6">
+					{% for image in images %}
+						{% if image.evenement.statusEvenement == 'En attente de validation' %}
 							<tr>
 								<td>
-									<span class="btn btn-secondary">{{ evenement.statusEvenement }}</span>
+									<span class="btn btn-secondary btn-sm">{{ image.evenement.statusEvenement }}</span>
 								</td>
-								<td>{{ evenement.nomEvenement }}</td>
-								<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
-								<td>{{ evenement.villeEvenement }}</td>
-								<td>{{ evenement.nomLieu }}</td>
-								<td>{{ evenement.tarifEvenement }}
+								<td>{{ image.evenement.nomEvenement }}</td>
+								<td>{{ image.evenement.dateEvenement ? image.evenement.dateEvenement|date('d-m-Y') : '' }}</td>
+								<td>{{ image.evenement.villeEvenement }}</td>
+								<td>{{ image.evenement.tarifEvenement }}
 									€</td>
-								<td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
 								<td>
-									<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
-									<a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': evenement.id}) }}">modifier</a>
+									<img class="btn" src="{{ asset('imgs/evenement/' ~ image.imageName ~ '') }}" alt="" width="75" height="75" data-bs-toggle="modal" data-bs-target="#modal{{ image.id}}">
+									<div class="modal fade" id="modal{{ image.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-fullscreen">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<img src="{{ asset('imgs/evenement/' ~ image.imageName ~ '') }}" alt="">
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td>{{ image.evenement.dateCreation ? image.evenement.dateCreation|date('d-m-Y') : '' }}</td>
+								<td>
+									<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': image.evenement.id}) }}">voir</a>
+									<a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': image.evenement.id}) }}">modifier</a>
 								</td>
 							</tr>
 						{% endif %}
@@ -53,7 +71,7 @@
 	</div>
 	<div class="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 		<h2>Evènements validés</h2>
-		<table class="table">
+		<table class="table table-sm">
 			<thead class="table-dark">
 				<tr>
 					<th>Status</th>
@@ -67,22 +85,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for evenement in evenements %}
-					{% if evenement.statusEvenement == 'Validé' %}
+				{% for image in images %}
+					{% if image.evenement.statusEvenement == 'Validé' %}
 						<tr>
 							<td>
-								<span class="btn btn-success">{{ evenement.statusEvenement }}</span>
+								<span class="btn btn-success btn-sm">{{ image.evenement.statusEvenement }}</span>
 							</td>
-							<td>{{ evenement.nomEvenement }}</td>
-							<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
-							<td>{{ evenement.villeEvenement }}</td>
-							<td>{{ evenement.nomLieu }}</td>
-							<td>{{ evenement.tarifEvenement }}
+							<td>{{ image.evenement.nomEvenement }}</td>
+							<td>{{ image.evenement.dateEvenement ? image.evenement.dateEvenement|date('d-m-Y') : '' }}</td>
+							<td>{{ image.evenement.villeEvenement }}</td>
+							<td>{{ image.evenement.nomLieu }}</td>
+							<td>{{ image.evenement.tarifEvenement }}
 								€</td>
-							<td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
+							<td>{{ image.evenement.dateCreation ? image.evenement.dateCreation|date('d-m-Y') : '' }}</td>
 							<td>
-								<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
-								<a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': evenement.id}) }}">modifier</a>
+								<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': image.evenement.id}) }}">voir</a>
+								<a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': image.evenement.id}) }}">modifier</a>
 							</td>
 						</tr>
 					{% endif %}
