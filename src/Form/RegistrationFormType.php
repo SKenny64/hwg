@@ -22,7 +22,7 @@ class RegistrationFormType extends AbstractType
         $builder
         ->add('email', EmailType::class, [
             'attr' => [
-                'class' => 'form-control',
+                'class' => 'form-control mb-5',
             ],
         ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -38,7 +38,7 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control mb-3',
                     'autocomplete' => 'new-password',
                 ],
                 'constraints' => [

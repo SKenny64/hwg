@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin - Back Office{% endblock %}
+{% block title %}Admin - Back Office
+{% endblock %}
 
 {% block body %}
 <h1>Dashboard admin</h1>
@@ -16,7 +17,7 @@
                     <th>Date</th>
                     <th>Ville</th>
                     <th>Tarif</th>
-                    <th>Couverture</th>
+                    <th>Image</th>
                     <th>Date de Creation</th>
                     <th>actions</th>
                 </tr>
@@ -53,62 +54,8 @@
                     </td>
                     <td>{{ image.evenement.dateCreation ? image.evenement.dateCreation|date('d-m-Y') : '' }}</td>
                     <td>
-                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas{{ image.evenement.id }}" aria-controls="offcanvasRight">Détails</button>
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas{{ image.evenement.id }}" aria-labelledby="offcanvasRightLabel">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasRightLabel">Détail de l'évènement</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Heure</th>
-                                            <td>{{ image.evenement.heureEvenement ? image.evenement.heureEvenement|date('H:i') : '' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Descriptif</th>
-                                            <td>{{ image.evenement.descriptif }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ville</th>
-                                            <td>{{ image.evenement.villeEvenement }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Code postal</th>
-                                            <td>{{ image.evenement.codePostalEvenement }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Adresse</th>
-                                            <td>{{ image.evenement.adresse }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Nom du lieu</th>
-                                            <td>{{ image.evenement.nomLieu }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Capacite total</th>
-                                            <td>{{ image.evenement.capaciteTotal }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Duree</th>
-                                            <td>{{ image.evenement.duree }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Tarif</th>
-                                            <td>{{ image.evenement.tarifEvenement }} €</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                {% for evenement in evenements %}
-                                {% if evenement.id is same as image.evenement.id %}
-                                <a class='btn btn-info mb-3' href="{{ path('app_home_show', {'id': evenement.id}) }}">Page de l'évènement</a>
-                                <a class="btn btn-secondary mb-3" href="{{ path('app_admin_evenement_edit', {'id': image.evenement.id}) }}">modifier</a>
-                                {{ include('evenement/_delete_form.html.twig') }}
-                                {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
+                        <a class="btn btn-info" href="{{ path('app_evenement_show', {'id': image.evenement.id}) }}">voir</a>
+                        <a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': image.evenement.id}) }}">modifier</a>
                     </td>
                 </tr>
                 {% endif %}
@@ -132,7 +79,6 @@
                 <th>Ville</th>
                 <th>Lieu</th>
                 <th>Tarif</th>
-                <th>Couverture</th>
                 <th>Date de Creation</th>
                 <th>actions</th>
             </tr>
@@ -140,163 +86,6 @@
         <tbody>
         {% for image in images %}
             {% if image.evenement.statusEvenement == 'Validé' %}
-            <tr>
-                <td>
-                    <span class="btn btn-success btn-sm">{{ image.evenement.statusEvenement }}</span>
-                </td>
-                <td>{{ image.evenement.nomEvenement }}</td>
-                <td>{{ image.evenement.dateEvenement ? image.evenement.dateEvenement|date('d-m-Y') : '' }}</td>
-                <td>{{ image.evenement.villeEvenement }}</td>
-                <td>{{ image.evenement.nomLieu }}</td>
-                <td>{{ image.evenement.tarifEvenement }} €</td>
-                <td>
-                    <img class="btn" src="{{ asset('imgs/evenement/' ~ image.imageName ~ '') }}" alt="" width=75 height=75  data-bs-toggle="modal" data-bs-target="#modal{{ image.id}}">
-                    <div class="modal fade" id="modal{{ image.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-fullscreen">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <img src="{{ asset('imgs/evenement/' ~ image.imageName ~ '') }}" alt="">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td>{{ image.evenement.dateCreation ? image.evenement.dateCreation|date('d-m-Y') : '' }}</td>
-                <td>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas{{ image.evenement.id }}" aria-controls="offcanvasRight">Détails</button>
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas{{ image.evenement.id }}" aria-labelledby="offcanvasRightLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasRightLabel">Détail de l'évènement</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <th>Heure</th>
-                                        <td>{{ image.evenement.heureEvenement ? image.evenement.heureEvenement|date('H:i') : '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Descriptif</th>
-                                        <td>{{ image.evenement.descriptif }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Ville</th>
-                                        <td>{{ image.evenement.villeEvenement }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Code postal</th>
-                                        <td>{{ image.evenement.codePostalEvenement }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Adresse</th>
-                                        <td>{{ image.evenement.adresse }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Nom du lieu</th>
-                                        <td>{{ image.evenement.nomLieu }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Capacite total</th>
-                                        <td>{{ image.evenement.capaciteTotal }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Duree</th>
-                                        <td>{{ image.evenement.duree }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tarif</th>
-                                        <td>{{ image.evenement.tarifEvenement }} €</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            {% for evenement in evenements %}
-                            {% if evenement.id is same as image.evenement.id %}
-                            <a class='btn btn-info mb-3' href="{{ path('app_home_show', {'id': evenement.id}) }}">Page de l'évènement</a>
-                            <a class="btn btn-secondary mb-3" href="{{ path('app_admin_evenement_edit', {'id': image.evenement.id}) }}">modifier</a>
-                            {{ include('evenement/_delete_form.html.twig') }}
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="14">Aucun historique</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-<div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h2>Evènements Annulés</h2>
-    <table class="table table-sm">
-        <thead class="table-dark">
-            <tr>
-                <th>Status</th>
-                <th>Nom</th>
-                <th>Date</th>
-                <th>Ville</th>
-                <th>Lieu</th>
-                <th>Tarif</th>
-                <th>Date de Creation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for image in images %}
-            {% if image.evenement.statusEvenement == 'Annulé' %}
-            <tr>
-                <td>
-                    <span class="btn btn-success btn-sm">{{ image.evenement.statusEvenement }}</span>
-                </td>
-                <td>{{ image.evenement.nomEvenement }}</td>
-                <td>{{ image.evenement.dateEvenement ? image.evenement.dateEvenement|date('d-m-Y') : '' }}</td>
-                <td>{{ image.evenement.villeEvenement }}</td>
-                <td>{{ image.evenement.nomLieu }}</td>
-                <td>{{ image.evenement.tarifEvenement }} €</td>
-                <td>{{ image.evenement.dateCreation ? image.evenement.dateCreation|date('d-m-Y') : '' }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ path('app_evenement_show', {'id': image.evenement.id}) }}">voir</a>
-                    <a class="btn btn-secondary" href="{{ path('app_admin_evenement_edit', {'id': image.evenement.id}) }}">modifier</a>
-                </td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="14">Aucun historique</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-<div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h2>Evènements Terminés</h2>
-    <table class="table table-sm">
-        <thead class="table-dark">
-            <tr>
-                <th>Status</th>
-                <th>Nom</th>
-                <th>Date</th>
-                <th>Ville</th>
-                <th>Lieu</th>
-                <th>Tarif</th>
-                <th>Date de Creation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for image in images %}
-            {% if image.evenement.statusEvenement == 'Terminé' %}
             <tr>
                 <td>
                     <span class="btn btn-success btn-sm">{{ image.evenement.statusEvenement }}</span>
