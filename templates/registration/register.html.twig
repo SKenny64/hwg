@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="my-5">Register</h1>
+	<h1 class="my-5">Créer son compte</h1>
 
 	{{ form_errors(registrationForm) }}
 
@@ -15,6 +15,6 @@
         }) }}
 	{{ form_row(registrationForm.agreeTerms) }}
 
-	<button type="submit" class="btn btn-primary mt-2 mb-5">S'inscrire</button>
+	<button type="submit" class="btn btn-primary my-5">S'inscrire</button>
 	{{ form_end(registrationForm) }}
 {% endblock %}
