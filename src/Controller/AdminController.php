@@ -18,7 +18,6 @@ use App\Entity\ImageEvenement;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\EvenementType;
 use App\Repository\ImageEvenementRepository;
-use App\Form\ImageEvenementType;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
