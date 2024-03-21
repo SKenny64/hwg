@@ -4,27 +4,7 @@
 
 {% block body %}
 <h1>Dashboard admin</h1>
-<ul class="nav nav-pills nav-justified">
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Evenement</a>
-        <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Evenement</a></li>
-        <li><a class="dropdown-item" href="#">Participation</a></li>
-        <li><a class="dropdown-item" href="#">Catégorie</a></li>
-        </ul>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Transport</a>
-        <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Transport</a></li>
-        <li><a class="dropdown-item" href="#">Réservation</a></li>
-        <li><a class="dropdown-item" href="#">Type de transport</a></li>
-        </ul>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Utilisateur</a>
-    </li>
-</ul>
+{{ include('admin/nav-admin.html.twig') }}
 <div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
     <h2>Evènements en attente de validation</h2>
     <table class="table">
