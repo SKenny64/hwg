@@ -29,44 +29,52 @@ class TransportType extends AbstractType
         
         $builder
             ->add('TarifPersonne', null, [
+                'label' => "Tarif par personne",
                 'attr' => [
                     'class' => 'form-control',
                 ],
             ])
             ->add('descriptif', null, [
+                'label' => "Description du transport : ",
                 'attr' => [
                     'class' => 'form-control',
                 ]
             ])
             ->add('InfoContact', null, [
+                'label' =>  "Informations de contact (facultatif)",
                 'attr' => [
                     'class' => 'form-control',
                 ]
             ])
             ->add('DateDepart', null, [
+                'label' =>  'Date et heure de départ',
                 'widget' => 'single_text',
             ])
             ->add('DateCreation', null, [
                 'widget' => 'single_text',
             ])
             ->add('LieuDepart', null, [
+                'label' =>  'Ville de départ',
                 'attr' => [
                 'label' => "Lieu de départ",
                 'class' => 'form-control',
                 ]
             ])
             ->add('NbPlace', null, [
+                'label' =>  'Nombre de places disponibles',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('InfoPaiement', null, [
+                'label' => 'Information sur le paiement',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('StatutTransport')
             ->add('TypeTransport', EntityType::class, [
+                'label' => 'Type de transport',
                 'class' => TypeTransport::class,
                 'choice_label' => 'libelle_transport',
             ]);

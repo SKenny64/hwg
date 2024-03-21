@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Transport{% endblock %}
+{% block title %}New Transport
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Transport</h1>
+	<h1 class="my-5">Création d'un nouveau transport</h1>
 
-    {{ include('transport/_form.html.twig') }}
+	{{ include('transport/_form.html.twig') }}
 
-    <a href="{{ path('app_transport_index') }}">back to list</a>
+	<a href="{{ path('app_transport_index') }}">back to list</a>
 {% endblock %}
