@@ -83,26 +83,28 @@
 		</header>
 		{% if app.user %}
 			<nav class="side-nav">
-				<ul class="nav sticky-top">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{path('app_dashboard')}}">
-							<img src="{{ asset('imgs/baseline-home.svg') }}" class="img-fluid" style="width:50px; height:auto;">
-							Dashboard
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">
-							<img src="{{ asset('imgs/event-sharp.svg') }}" class="img-fluid" style="width:50px; height:auto;">
-							evenement
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#"></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link disabled" aria-disabled="true"></a>
-					</li>
-				</ul>
+				<div class="container">
+					<ul class="nav sticky-top py-2">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="{{path('app_dashboard')}}">
+								<img src="{{ asset('imgs/baseline-home.svg') }}" class="img-fluid" style="width:50px; height:auto;">
+								Dashboard
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<img src="{{ asset('imgs/event-sharp.svg') }}" class="img-fluid" style="width:50px; height:auto;">
+								evenement
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#"></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link disabled" aria-disabled="true"></a>
+						</li>
+					</ul>
+				</div>
 			</nav>
 		{% endif %}
 		<div class="container"> {% block body %}{% endblock %}
