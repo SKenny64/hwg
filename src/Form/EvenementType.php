@@ -12,7 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\SecurityBundle\Security;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EvenementType extends AbstractType
 {
@@ -48,8 +48,14 @@ class EvenementType extends AbstractType
             ->add('duree')
             ->add('tarifEvenement');
 
-            if ($role == ['ROLE_ADMIN']) {
-                $builder->add('statusEvenement')
+            if ($role[0] === 'ROLE_ADMIN') {
+                $builder->add('statusEvenement', ChoiceType::class, [
+                    'choices'  => [
+                        'En attente de validation' => 'En attente de validation',
+                        'Validé' => 'Validé',
+                        'Annulé' => 'Annulé',
+                    ],
+                ])
                     ->add('User', EntityType::class, [
                     'class' => User::class,
                     'choice_label' => 'id',
