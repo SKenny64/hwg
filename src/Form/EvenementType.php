@@ -17,7 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class EvenementType extends AbstractType
 {
 
-
     private $security;
 
     public function __construct(Security $security)
