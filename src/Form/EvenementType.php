@@ -11,11 +11,26 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EvenementType extends AbstractType
 {
+
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+
+        $role = $this->security->getUser()->getRoles();
+
         $builder
             ->add('nomEvenement')
             ->add('dateEvenement', null, [
@@ -27,19 +42,30 @@ class EvenementType extends AbstractType
             ->add('descriptif')
             ->add('villeEvenement')
             ->add('codePostalEvenement')
+            ->add('adresse')
             ->add('nomLieu')
             ->add('capaciteTotal')
             ->add('duree')
-            ->add('tarifEvenement')
-            ->add('statusEvenement')
-            ->add('categorie', EntityType::class, [
-                'class' => Categorie::class,
-                'choice_label' => 'id',
+            ->add('tarifEvenement');
+
+            if ($role[0] === 'ROLE_ADMIN') {
+                $builder->add('statusEvenement', ChoiceType::class, [
+                    'choices'  => [
+                        'En attente de validation' => 'En attente de validation',
+                        'Validé' => 'Validé',
+                        'Annulé' => 'Annulé',
+                    ],
                 ])
-            ->add('User', EntityType::class, [
+                    ->add('User', EntityType::class, [
                     'class' => User::class,
                     'choice_label' => 'id',
-                    ])
+                    ]);
+            }
+            $builder->add('categorie', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => 'libelleCategorie',
+                ])
+
             ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
         ;
     }

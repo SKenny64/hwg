@@ -10,10 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Symfony\Bundle\SecurityBundle\Security;
 #[Route('/evenement')]
 class EvenementController extends AbstractController
 {
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
     public function index(EvenementRepository $evenementRepository): Response
     {
@@ -27,6 +35,12 @@ class EvenementController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ORGA');
         $evenement = new Evenement();
+
+        $user = $this->security->getUser();
+
+        $evenement->setUser($user);
+        $evenement->setStatusEvenement('En attente de validation');
+
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 

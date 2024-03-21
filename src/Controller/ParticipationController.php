@@ -38,7 +38,6 @@ class ParticipationController extends AbstractController
     {
         $participation = new Participation();
 
-        
         $userId = $this->security->getUser()->getId();
         $evenement = $entityManager->getRepository(Evenement::class)->find($id);
         $user = $entityManager->getRepository(User::class)->find($userId);
@@ -58,6 +57,18 @@ class ParticipationController extends AbstractController
             $this->addFlash('success', 'Inscription validé');
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
             
+        }
+
+        if($this->security->getUser()->getRoles() == ['ROLE_ADMIN']) {
+            $form = $this->createForm(ParticipationType::class, $participation);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($participation);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+            }
         }
     }
 

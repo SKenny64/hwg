@@ -13,6 +13,7 @@ use App\Repository\TransportRepository;
 #[Route('/')]
 class HomeController extends AbstractController
 {
+
     #[Route('/', name: 'app_home')]
     public function index(
         EvenementRepository $evenementRepository,
@@ -35,13 +36,15 @@ class HomeController extends AbstractController
         TransportRepository  $transportRepository,
     ): Response
     {
+
         $image = $imageEvenementRepository->findEvent($id);
         $evenement = $image->getEvenement();
         $transports = $transportRepository->findByEvents($id);
         return $this->render('home/show.html.twig', [
             'image' => $image,
             'evenement' => $evenement,
-            'transports' => $transports
+            'transports' => $transports,
+
         ]);
     }
         
