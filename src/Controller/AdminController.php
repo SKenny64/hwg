@@ -14,8 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Evenement;
+use App\Entity\ImageEvenement;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\EvenementType;
+use App\Repository\ImageEvenementRepository;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -28,7 +30,8 @@ class AdminController extends AbstractController
         TransportRepository $transportRepository,
         CategorieRepository $categorieRepository,
         UserRepository $userRepository,
-        AdresseRepository $adresseRepository
+        AdresseRepository $adresseRepository,
+        ImageEvenementRepository  $imageEvenement
     ): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
@@ -40,7 +43,8 @@ class AdminController extends AbstractController
             'transports' => $transportRepository->findAll(),
             'users' => $userRepository->findAll(),
             'categories' => $categorieRepository->findAll(),
-            'addresses' => $adresseRepository->findAll()
+            'addresses' => $adresseRepository->findAll(),
+            'images' => $imageEvenement->findAll(),
         ]);
     }
 

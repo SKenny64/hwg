@@ -11983,8 +11983,7 @@ textarea.form-control-lg {
 }
 
 .side-nav {
-  background: rgb(248, 249, 250);
-  background: linear-gradient(180deg, rgb(248, 249, 250) 5%, rgb(33, 37, 41) 35%);
+  background: #F07675;
 }
 
 .event-badge {
