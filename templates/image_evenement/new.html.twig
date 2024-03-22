@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New ImageEvenement{% endblock %}
+{% block title %}New ImageEvenement
+{% endblock %}
 
 {% block body %}
-    <h1>Create new ImageEvenement</h1>
+	<h1 class="my-5">Ajouter une image pour cette évènement -- obligatoire</h1>
 
-    {{ include('image_evenement/_form.html.twig') }}
+	{{ include('image_evenement/_form.html.twig') }}
 
-    <a href="{{ path('app_image_evenement_index') }}">back to list</a>
+	<a href="{{ path('app_image_evenement_index') }}">back to list</a>
 {% endblock %}
