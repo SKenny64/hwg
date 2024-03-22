@@ -64,6 +64,30 @@ class DashboardController extends AbstractController
           'total' => $total,
           'depuis' => count($tableau_stats),
         ];
-        dd(count($tableau_stats));
+    }
+
+    public function exportEventsToCsv(EvenementRepository $evenementRepository,): Response
+    {;
+
+        // Récupérer tous les évènements depuis la base de données
+        $evenements = $evenementRepository->findAll();
+
+        // Créer un contenu CSV à partir des évènements
+        $csvContent = "ID,Nom,Description,Date\n";
+        foreach ($evenements as $evenement) {
+            $csvContent .= "{$evenement->getId()},
+            \"{$evenement->getnomEvenement()}\",
+            \"{$evenement->getDateEvenement()->format('d-m-Y')}\",
+            {$evenement->getDate()->format('Y-m-d')}\n";
+        }
+
+        // Créer la réponse HTTP avec le contenu CSV
+        $response = new Response($csvContent);
+
+        // Définir les en-têtes pour indiquer que c'est un fichier CSV à télécharger
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="events.csv"');
+
+        return $response;
     }
 }
