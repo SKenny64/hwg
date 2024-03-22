@@ -127,119 +127,111 @@
 			<tr>
 				<td colspan="14">Aucun historique</td>
 			</tr>
-		{% endfor %}
-	</tbody>
-</table></div>{% endif %}<div class="last-reservation my-5"><h2>Dernieres réservation de transport :</h2><table class="table">
-<thead class="table-dark">
-	<tr>
-		<th>Date de Reservation</th>
-		<th>Evenement lié</th>
-		<th>Prix de la place</th>
-		<th>Date de départ</th>
-		<th>actions</th>
-	</tr>
-</thead>
-<tbody>
-	{% for reservation in reservations %}
-		<tr>
-			{% if reservation.user.id is same as app.user.id %}
-				<td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d') : '' }}</td>
-				<td>{{ reservation.transport.evenement.nomEvenement  }}</td>
-				<td>{{ reservation.transport.TarifPersonne }}
-					€</td>
-				<td>{{ reservation.transport.DateDepart ? reservation.transport.DateDepart|date('d-m-Y à H:i') : '' }}</td>
-				<td>
-					{% for transport in transports %}
-						{% if transport.id == reservation.transport.id %}
-							<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas{{ transport.id }}" aria-controls="offcanvasRight">Détails</button>
-							<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas{{ transport.id }}" aria-labelledby="offcanvasRightLabel">
-								<div class="offcanvas-header">
-									<h5 class="offcanvas-title" id="offcanvasRightLabel">Détail du transport réserver</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-								</div>
-								<div class="offcanvas-body">
-									<table class="table">
-										<tbody>
-											<tr>
-												<th>TarifPersonne</th>
-												<td>{{ transport.TarifPersonne }}</td>
-											</tr>
-											<tr>
-												<th>Descriptif</th>
-												<td>{{ transport.descriptif }}</td>
-											</tr>
-											<tr>
-												<th>InfoContact</th>
-												<td>{{ transport.InfoContact }}</td>
-											</tr>
-											<tr>
-												<th>DateDepart</th>
-												<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-											</tr>
-											<tr>
-												<th>LieuDepart</th>
-												<td>{{ transport.LieuDepart }}</td>
-											</tr>
-											<tr>
-												<th>NbPlace</th>
-												<td>{{ transport.NbPlace }}</td>
-											</tr>
-											<tr>
-												<th>InfoPaiement</th>
-												<td>{{ transport.InfoPaiement }}</td>
-											</tr>
-										</tbody>
-									</table>
-									<a class='btn btn-info mb-5' href="{{ path('app_transport_show', {'id': transport.id}) }}">Page de l'évènement</a>
-									{{ include('reservation/_delete_form.html.twig') }}
-								</div>
-							</div>
-						{% endif %}
-					{% endfor %}
-				</td>
-			{% endif %}
-		</tr>
-	{% else %}
-		<tr>
-			<td colspan="3">no records found</td>
-		</tr>
-	{% endfor %}
-</tbody></table></div><div class="last-transport my-5"><h2>Dernier transport proposer</h2><table class="table">
-<thead class="table-dark">
-	<tr>
-		<th>Statut</th>
-		<th>Tarif</th>
-		<th>Contact</th>
-		<th>Date de Depart</th>
-		<th>Lieu de Depart</th>
-		<th>Place</th>
-		<th>Paiement</th>
-		<th>actions</th>
-	</tr>
-</thead>
-<tbody>
-	{% for transport in transports %}
-		{% if transport.user.id is same as app.user.id %}
-			<tr>
-				<td>
-					<span class="btn btn-secondary">{{ transport.StatutTransport }}</span>
-				</td>
-				<td>{{ transport.TarifPersonne }}
-					€</td>
-				<td>{{ transport.InfoContact }}</td>
-				<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-				<td>{{ transport.LieuDepart }}</td>
-				<td>{{ transport.NbPlace }}</td>
-				<td>{{ transport.InfoPaiement }}</td>
-				<td>
-					<a class="btn btn-info" href="{{ path('app_transport_show', {'id': transport.id}) }}">voir</a>
-					<a class="btn btn-secondary" href="{{ path('app_transport_edit', {'id': transport.id}) }}">modifier</a>
-				</td>
-			</tr>
 		{% endif %}
+	{% endfor %}
+</table></div>{% endif %}<div class="last-reservation my-5"><h2>Dernieres réservation de transport :</h2><table class="table"></tbody><thead class="table-dark">
+<tr>
+	<th>Date de Reservation</th>
+	<th>Evenement lié</th>
+	<th>Prix de la place</th>
+	<th>Date de départ</th>
+	<th>actions</th>
+</tr></thead><tbody>
+{% for reservation in reservations %}
+	<tr>
+		{% if reservation.user.id is same as app.user.id %}
+			<td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d') : '' }}</td>
+			<td>{{ reservation.transport.evenement.nomEvenement  }}</td>
+			<td>{{ reservation.transport.TarifPersonne }}
+				€</td>
+			<td>{{ reservation.transport.DateDepart ? reservation.transport.DateDepart|date('d-m-Y à H:i') : '' }}</td>
+			<td>
+				{% for transport in transports %}
+					{% if transport.id == reservation.transport.id %}
+						<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas{{ transport.id }}" aria-controls="offcanvasRight">Détails</button>
+						<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas{{ transport.id }}" aria-labelledby="offcanvasRightLabel">
+							<div class="offcanvas-header">
+								<h5 class="offcanvas-title" id="offcanvasRightLabel">Détail du transport réserver</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+							</div>
+							<div class="offcanvas-body">
+								<table class="table">
+									<tbody>
+										<tr>
+											<th>TarifPersonne</th>
+											<td>{{ transport.TarifPersonne }}</td>
+										</tr>
+										<tr>
+											<th>Descriptif</th>
+											<td>{{ transport.descriptif }}</td>
+										</tr>
+										<tr>
+											<th>InfoContact</th>
+											<td>{{ transport.InfoContact }}</td>
+										</tr>
+										<tr>
+											<th>DateDepart</th>
+											<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+										</tr>
+										<tr>
+											<th>LieuDepart</th>
+											<td>{{ transport.LieuDepart }}</td>
+										</tr>
+										<tr>
+											<th>NbPlace</th>
+											<td>{{ transport.NbPlace }}</td>
+										</tr>
+										<tr>
+											<th>InfoPaiement</th>
+											<td>{{ transport.InfoPaiement }}</td>
+										</tr>
+									</tbody>
+								</table>
+								<a class='btn btn-info mb-5' href="{{ path('app_transport_show', {'id': transport.id}) }}">Page de l'évènement</a>
+								{{ include('reservation/_delete_form.html.twig') }}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</td>
+		{% endif %}
+	</tr>
+{% else %}
+	<tr>
+		<td colspan="3">no records found</td>
+	</tr>
+{% endfor %}</tbody></table></div><div class="last-transport my-5"><h2>Dernier transport proposer</h2><table class="table"><thead class="table-dark">
+<tr>
+	<th>Statut</th>
+	<th>Tarif</th>
+	<th>Contact</th>
+	<th>Date de Depart</th>
+	<th>Lieu de Depart</th>
+	<th>Place</th>
+	<th>Paiement</th>
+	<th>actions</th>
+</tr></thead><tbody>
+{% for transport in transports %}
+	{% if transport.user.id is same as app.user.id %}
+		<tr>
+			<td>
+				<span class="btn btn-secondary">{{ transport.StatutTransport }}</span>
+			</td>
+			<td>{{ transport.TarifPersonne }}
+				€</td>
+			<td>{{ transport.InfoContact }}</td>
+			<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+			<td>{{ transport.LieuDepart }}</td>
+			<td>{{ transport.NbPlace }}</td>
+			<td>{{ transport.InfoPaiement }}</td>
+			<td>
+				<a class="btn btn-info" href="{{ path('app_transport_show', {'id': transport.id}) }}">voir</a>
+				<a class="btn btn-secondary" href="{{ path('app_transport_edit', {'id': transport.id}) }}">modifier</a>
+			</td>
+		</tr>
 	{% else %}
 		<tr>
 			<td colspan="11">Aucun éléments</td>
 		</tr>
-	{% endfor %}
-</tbody></table></div>{% endblock %}
+	{% endif %}
+{% endfor %}</tbody></table></div>{% endblock %}
