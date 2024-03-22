@@ -37,7 +37,7 @@ class DashboardController extends AbstractController
             'evenements' => $evenementRepository->findAll(),
             'reservations' => $reservationRepository->findAll(),
             'transports' => $transportRepository->findAll(),
-            'compteurs' => $compteurs
+            'compteurs' => $compteurs,
         ]);
     }
 
@@ -66,27 +66,38 @@ class DashboardController extends AbstractController
         ];
     }
 
-    public function exportEventsToCsv(EvenementRepository $evenementRepository,): Response
+    #[Route('/evenenemt/csv/{id}', name: 'event_csv')]
+    public function exportEventsToCsv(int $id, EvenementRepository $evenementRepository,): Response
     {;
 
         // Récupérer tous les évènements depuis la base de données
-        $evenements = $evenementRepository->findAll();
+        $evenement = $evenementRepository->find($id);
 
         // Créer un contenu CSV à partir des évènements
-        $csvContent = "ID,Nom,Description,Date\n";
-        foreach ($evenements as $evenement) {
+        $csvContent = "ID,Date,Heure,Descriptif,Ville,Code postal,Adresee, Nom du lieu,Capacite total,Durée,Tarif,Date de création,Catégorie,Transport, Organisateur \n";
             $csvContent .= "{$evenement->getId()},
             \"{$evenement->getnomEvenement()}\",
             \"{$evenement->getDateEvenement()->format('d-m-Y')}\",
-            {$evenement->getDate()->format('Y-m-d')}\n";
-        }
+            \"{$evenement->getheureEvenement()->format('H:i')}\",
+            \"{$evenement->getDescriptif()}\",
+            \"{$evenement->getVilleEvenement()}\",
+            \"{$evenement->getCodePostalEvenement()}\",
+            \"{$evenement->getAdresse()}\",
+            \"{$evenement->getNomLieu()}\",
+            \"{$evenement->getCapaciteTotal()}\",
+            \"{$evenement->getDuree()}\",
+            \"{$evenement->getTarifEvenement()}\",
+            \"{$evenement->getStatusEvenement()}\",
+            \"{$evenement->getDateCreation()->format('d-m-Y')}
+            \n";
+
 
         // Créer la réponse HTTP avec le contenu CSV
         $response = new Response($csvContent);
 
         // Définir les en-têtes pour indiquer que c'est un fichier CSV à télécharger
         $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="events.csv"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $evenement->getNomEvenement() . '.csv"');
 
         return $response;
     }

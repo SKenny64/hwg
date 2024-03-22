@@ -123,8 +123,7 @@
 									{{ evenement.statusEvenement }}
 								</span>
 							</td>
-							</td>
-							<td>{{ evenement.nomEvenement }}</td>
+							<td>{{ evenement.nomEvenement }} <a href="{{ path('event_csv', {'id' : evenement.id}) }}">csv</a></td>
 							<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
 							<td>{{ evenement.villeEvenement }}</td>
 							<td>{{ evenement.nomLieu }}</td>
