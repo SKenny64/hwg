@@ -113,29 +113,31 @@
 					{% if evenement.user.id is same as app.user.id %}
 						<tr>
 							<td>
-								<span {% if evenement.statusEvenement == 'En attente de validation' %} class="btn btn-secondary">
+								<span 
+								{% if evenement.statusEvenement == 'En attente de validation' %} 
+									class="btn btn-secondary">
 								{% else %}
 									class="btn btn-success">
 								{% endif %}
-								{{ evenement.statusEvenement }}</td>
+									{{ evenement.statusEvenement }}
+								</span>
+							</td>
+							</td>
+							<td>{{ evenement.nomEvenement }}</td>
+							<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
+							<td>{{ evenement.villeEvenement }}</td>
+							<td>{{ evenement.nomLieu }}</td>
+							<td>{{ evenement.tarifEvenement }}
+								€</td>
+							<td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
+							<td>
+								<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
+								<a class="btn btn-secondary" href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">modifier</a>
+							</td>
 						</tr>
-					</span>
-				</td>
-				<td>{{ evenement.nomEvenement }}</td>
-				<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
-				<td>{{ evenement.villeEvenement }}</td>
-				<td>{{ evenement.nomLieu }}</td>
-				<td>{{ evenement.tarifEvenement }}
-					€</td>
-				<td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
-				<td>
-					<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
-					<a class="btn btn-secondary" href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">modifier</a>
-				</td>
+					{% endif %}
+				{% else %}
 			</tbody>
-		</tr>
-	{% endif %}
-{% else %}
 	<tr>
 		<td colspan="14">Aucun historique</td>
 	</tr>

@@ -8,8 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>LibelleCategorie</th>
+                <th>Nom de la catégorie</th>
                 <th>Couleur</th>
                 <th>actions</th>
             </tr>
@@ -19,10 +18,10 @@
             <tr>
                 <td>{{ categorie.id }}</td>
                 <td>{{ categorie.libelleCategorie }}</td>
-                <td>{{ categorie.couleur }}</td>
+                <td><span class="btn" style="background:{{ categorie.couleur }}"></span></td>
                 <td>
-                    <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}">show</a>
-                    <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">edit</a>
+                    <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}">Liste des évènements rattachés</a>
+                    <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+	{{ totaleVisites }}
 	{% for message in app.flashes('pas success') %}
 		<div class="alert alert-success">
 			{{ message }}

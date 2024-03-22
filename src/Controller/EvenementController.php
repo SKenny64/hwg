@@ -33,7 +33,7 @@ class EvenementController extends AbstractController
     #[Route('/new', name: 'app_evenement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ORGA');
+        $this->denyAccessUnlessGranted('ROLE_ORGA', 'ROLE_ADMIN' , message:'Accès refusé');  // On vérifie que l'utilisateur est connect
         $evenement = new Evenement();
 
         $user = $this->security->getUser();
@@ -61,6 +61,7 @@ class EvenementController extends AbstractController
     #[Route('/{id}', name: 'app_evenement_show', methods: ['GET'])]
     public function show(Evenement $evenement): Response
     {
+        
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
         ]);

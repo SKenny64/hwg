@@ -54,8 +54,13 @@
 					<ul class="navbar-nav">
 						<li class="nav-item">
 							<form class="d-flex" role="search">
-								<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-								<button class="btn btn-outline-info" type="submit">Search</button>
+							{# {{ form_start(form) }}
+<div class="form-control">
+    <i class="fa fa-calendar"></i> {{ form_label(form.searchName) }}
+    {{ form_widget(form.searchName) }}
+	<button type="submit">Rechercher</button>
+</div>
+{{ form_end(form) }} #}
 							</form>
 						</li>
 						<li class="nav-item dropdown">

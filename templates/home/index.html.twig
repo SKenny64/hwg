@@ -4,6 +4,13 @@
 {% endblock %}
 
 {% block body %}
+{# {{ form_start(form) }}
+<div class="form-control">
+    <i class="fa fa-calendar"></i> {{ form_label(form.searchName) }}
+    {{ form_widget(form.searchName) }}
+	<button type="submit">Rechercher</button>
+</div>
+{{ form_end(form) }} #}
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success">
 			{{ message }}
