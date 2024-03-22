@@ -74,22 +74,22 @@ class DashboardController extends AbstractController
         $evenement = $evenementRepository->find($id);
 
         // Créer un contenu CSV à partir des évènements
-        $csvContent = "ID,Date,Heure,Descriptif,Ville,Code postal,Adresee, Nom du lieu,Capacite total,Durée,Tarif,Date de création,Catégorie,Transport, Organisateur \n";
-            $csvContent .= "{$evenement->getId()},
-            \"{$evenement->getnomEvenement()}\",
-            \"{$evenement->getDateEvenement()->format('d-m-Y')}\",
-            \"{$evenement->getheureEvenement()->format('H:i')}\",
-            \"{$evenement->getDescriptif()}\",
-            \"{$evenement->getVilleEvenement()}\",
-            \"{$evenement->getCodePostalEvenement()}\",
-            \"{$evenement->getAdresse()}\",
-            \"{$evenement->getNomLieu()}\",
-            \"{$evenement->getCapaciteTotal()}\",
-            \"{$evenement->getDuree()}\",
-            \"{$evenement->getTarifEvenement()}\",
-            \"{$evenement->getStatusEvenement()}\",
-            \"{$evenement->getDateCreation()->format('d-m-Y')}
-            \n";
+        $csvContent = "ID,Nom,Date,Heure,Descriptif,Ville,Code postal,Adresse,Nom du lieu,Capacité totale,Durée,Tarif,Date de création,status\n";
+        $csvContent .= "{$evenement->getId()},";
+        $csvContent .= "\"{$evenement->getNomEvenement()}\",";
+        $csvContent .= "\"{$evenement->getDateEvenement()->format('d-m-Y')}\",";
+        $csvContent .= "\"{$evenement->getHeureEvenement()->format('H:i')}\",";
+        $csvContent .= "\"{$evenement->getDescriptif()}\",";
+        $csvContent .= "\"{$evenement->getVilleEvenement()}\",";
+        $csvContent .= "\"{$evenement->getCodePostalEvenement()}\",";
+        $csvContent .= "\"{$evenement->getAdresse()}\",";
+        $csvContent .= "\"{$evenement->getNomLieu()}\",";
+        $csvContent .= "\"{$evenement->getCapaciteTotal()}\",";
+        $csvContent .= "\"{$evenement->getDuree()}\",";
+        $csvContent .= "\"{$evenement->getTarifEvenement()}\",";
+        $csvContent .= "\"{$evenement->getDateCreation()->format('d-m-Y')}\",";
+        $csvContent .= "\"{$evenement->getStatusEvenement()}\",";
+
 
 
         // Créer la réponse HTTP avec le contenu CSV
