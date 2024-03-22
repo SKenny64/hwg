@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard
+{% endblock %}
 
 {% block body %}
 <nav class="navbar bg-body-tertiary dashboard-nav">
@@ -234,6 +235,4 @@
 {% endif %}{% else %}
 <tr>
 	<td colspan="11">no records found</td>
-</tr>{% endfor %}</tbody></table>
-</div>
-{% endblock %}
+</tr>{% endfor %}</tbody></table></div>{% endblock %}
