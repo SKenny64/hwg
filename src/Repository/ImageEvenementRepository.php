@@ -46,6 +46,26 @@ class ImageEvenementRepository extends ServiceEntityRepository
        ;
    }
 
+    public function findBySearchTerm($searchTerm): iterable
+    {
+        return $this->createQueryBuilder('i')
+            ->innerJoin("i.evenement", "e")
+            ->Where('e.nomEvenement LIKE :search')
+            ->setParameter('search', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    }
+    
+    public function findBySearchDate($searchTerm): iterable
+    {
+        return $this->createQueryBuilder('i')
+            ->innerJoin("i.evenement", "e")
+            ->Where('e.dateEvenement LIKE :search')
+            ->setParameter('search', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    } 
+
    public function findByCategory($id): array
    {
         return $this->createQueryBuilder('i')
