@@ -105,6 +105,7 @@
 					<th>Lieu</th>
 					<th>Tarif</th>
 					<th>Date de Creation</th>
+					<th>Nombre de visite</th>
 					<th>actions</th>
 				</tr>
 			</thead>
@@ -127,9 +128,9 @@
 							<td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('d-m-Y') : '' }}</td>
 							<td>{{ evenement.villeEvenement }}</td>
 							<td>{{ evenement.nomLieu }}</td>
-							<td>{{ evenement.tarifEvenement }}
-								€</td>
+							<td>{{ evenement.tarifEvenement }}€</td>
 							<td>{{ evenement.dateCreation ? evenement.dateCreation|date('d-m-Y') : '' }}</td>
+							<td>{{ compteurs[evenement.id]['total'] }}</td>
 							<td>
 								<a class="btn btn-info" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">voir</a>
 								<a class="btn btn-secondary" href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">modifier</a>
