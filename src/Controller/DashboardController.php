@@ -23,21 +23,34 @@ class DashboardController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
         $evenements = $evenementRepository->findAll();
+        $transports = $transportRepository->findAll();
 
         $compteurs = [];
+
+        $nbreParticipations = [];
+
+        $nbreReservations = [];
 
         // Parcourir chaque événement et récupérer les compteurs
         foreach ($evenements as $evenement) {
             $idEvenement = $evenement->getId();
             $compteurs[$idEvenement] = $this->compteur_visites($idEvenement);
+            $nbreParticipations[$idEvenement] = $participationRepository->countByEvent($idEvenement);
+        }
+
+        foreach ($transports as $transport) {
+            $idTransport = $transport->getId();
+            $nbreReservations[$idTransport] = $reservationRepository->countByTransport($idTransport);
         }
 
         return $this->render('dashboard/index.html.twig', [
             'participations' => $participationRepository->findAll(),
-            'evenements' => $evenementRepository->findAll(),
+            'evenements' => $evenements,
             'reservations' => $reservationRepository->findAll(),
             'transports' => $transportRepository->findAll(),
             'compteurs' => $compteurs,
+            'nbreParticipations' =>  $nbreParticipations,
+            'nbreReservations' => $nbreReservations
         ]);
     }
 
@@ -67,15 +80,22 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/evenenemt/csv/{id}', name: 'event_csv')]
-    public function exportEventsToCsv(int $id, EvenementRepository $evenementRepository,): Response
+    public function exportEventsToCsv(int $id, EvenementRepository $evenementRepository, ParticipationRepository $participationRepository,): Response
     {;
 
-        // Récupérer tous les évènements depuis la base de données
         $evenement = $evenementRepository->find($id);
+        $idEvenement = $evenement->getId();
+
+        $compteurs = [];
+        $compteurs = $this->compteur_visites($idEvenement);
+
+        $nbreParticipations = $participationRepository->countByEvent($idEvenement);
+
+        $ca = $nbreParticipations * $evenement->getTarifEvenement();
 
         // Créer un contenu CSV à partir des évènements
-        $csvContent = "ID,Nom,Date,Heure,Descriptif,Ville,Code postal,Adresse,Nom du lieu,Capacité totale,Durée,Tarif,Date de création,status\n";
-        $csvContent .= "{$evenement->getId()},";
+        $csvContent = "ID,Nom,Date,Heure,Descriptif,Ville,Code postal,Adresse,Nom du lieu,Capacité totale,Durée(min),Tarif(€),Date de création,status,inscriptions,chiffres d'affaire(€),nombres de visiteurs\n";
+        $csvContent .= "{$idEvenement},";
         $csvContent .= "\"{$evenement->getNomEvenement()}\",";
         $csvContent .= "\"{$evenement->getDateEvenement()->format('d-m-Y')}\",";
         $csvContent .= "\"{$evenement->getHeureEvenement()->format('H:i')}\",";
@@ -89,6 +109,9 @@ class DashboardController extends AbstractController
         $csvContent .= "\"{$evenement->getTarifEvenement()}\",";
         $csvContent .= "\"{$evenement->getDateCreation()->format('d-m-Y')}\",";
         $csvContent .= "\"{$evenement->getStatusEvenement()}\",";
+        $csvContent .= "\"{$nbreParticipations}\",";
+        $csvContent .= "\"{$ca}\",";
+        $csvContent .= "\"{$compteurs["total"]}\",";
 
 
 

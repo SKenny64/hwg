@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+{{ include('admin/nav-admin.html.twig') }}
+    <h1>Liste des types de transport</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom du type de transport</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typeTransport in typeTransports %}
+            <tr>
+                <td>{{ typeTransport.libelleTransport }}</td>
+                <td>
+                    <a href="{{ path('app_categorie_edit', {'id': typeTransport.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun type de transport enregistré</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_type_transport_new') }}">Nouveau type de transport</a>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Participation index{% endblock %}
+
+{% block body %}
+{{ include('admin/nav-admin.html.twig') }}
+    <h1>Liste des participation</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Evenement inscrit</th>
+                <th>Date d'inscription</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for participation in participations %}
+            <tr>
+                <td>{{ participation.user.email }}</td>
+                <td>{{ participation.evenement.nomEvenement }}</td>
+                <td>{{ participation.dateParticipation ? participation.dateParticipation|date('d-m-Y') : '' }}</td>
+                <td>
+                    <a class="btn btn-danger" href="{{ path('app_participation_delete', {'id': participation.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

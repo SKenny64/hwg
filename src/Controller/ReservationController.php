@@ -43,10 +43,11 @@ class ReservationController extends AbstractController
         $user = $entityManager->getRepository(User::class)->find($userId);
         $reservationUser = $reservationRepository->findByUser($user);
         $reservationEvent = $reservationRepository->findByTransport($transport);
+        $idEvenement = $reservationEvent[0]->getTransport()->getEvenement()->getId();
 
         if($reservationUser && $reservationEvent) {
             $this->addFlash('pas success', 'Vous êtes déjà inscrit');
-            return $this->redirectToRoute('app_home_show', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home_show', ['id' => $idEvenement], Response::HTTP_SEE_OTHER);
         } else {
             $reservation->setTransport($transport);
             $reservation->setUser( $user );

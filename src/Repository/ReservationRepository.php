@@ -46,5 +46,15 @@ class ReservationRepository extends ServiceEntityRepository
              ->getResult()
          ;
      }
+
+     public function countByTransport($transportId): int
+     {
+         return $this->createQueryBuilder('r')
+             ->select('COUNT(r.id)')
+             ->andWhere('r.transport = :transport')
+             ->setParameter('transport', $transportId)
+             ->getQuery()
+             ->getSingleScalarResult();
+     }
  
 }

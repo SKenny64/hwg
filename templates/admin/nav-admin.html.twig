@@ -2,17 +2,17 @@
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Evenement</a>
         <ul class="dropdown-menu z-3">
-        <li><a class="dropdown-item" href="#">Evenement</a></li>
-        <li><a class="dropdown-item" href="#">Participation</a></li>
+        <li><a class="dropdown-item" href="{{ path('app_admin') }}">Evenement</a></li>
+        <li><a class="dropdown-item" href="{{ path('app_admin_participation') }}">Participation</a></li>
         <li><a class="dropdown-item" href="{{ path('app_admin_categorie') }}">Catégorie</a></li>
         </ul>
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Transport</a>
         <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Transport</a></li>
-        <li><a class="dropdown-item" href="#">Réservation</a></li>
-        <li><a class="dropdown-item" href="#">Type de transport</a></li>
+        <li><a class="dropdown-item" href="{{ path('app_admin_transport')}}">Transport</a></li>
+        <li><a class="dropdown-item" href="{{ path('app_admin_reservation') }}">Réservation</a></li>
+        <li><a class="dropdown-item" href="{{ path('app_admin_typetransport') }}">Type de transport</a></li>
         </ul>
     </li>
     <li class="nav-item">
