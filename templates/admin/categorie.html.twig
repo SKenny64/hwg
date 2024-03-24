@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+{{ include('admin/nav-admin.html.twig') }}
+    <h1>Categorie</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom de la catégorie</th>
+                <th>Couleur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.libelleCategorie }}</td>
+                <td ><span class="btn btn-lg" style="background:{{ categorie.couleur }}"></span></td>
+                <td>
+                    <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_categorie_new') }}">Nouvelle catégorie</a>
+{% endblock %}

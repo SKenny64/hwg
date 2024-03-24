@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}reservation index{% endblock %}
+
+{% block body %}
+{{ include('admin/nav-admin.html.twig') }}
+    <h1>Liste des réservation</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>transport réserver</th>
+                <th>tarif de la place</th>
+                <th>Date de réservation</th>
+                <th>Organisateur du transport</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.user.email }}</td>
+                <td>{{ reservation.transport.descriptif }}</td>
+                <td>{{ reservation.transport.tarifPersonne }} €</td>
+                <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d-m-Y') : '' }}</td>
+                <td>{{ reservation.transport.user.email }}</td>
+                <td>
+                    <a class="btn btn-danger" href="{{ path('app_reservation_delete', {'id': reservation.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

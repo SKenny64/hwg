@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class TransportType extends AbstractType
 {
@@ -72,7 +73,13 @@ class TransportType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('StatutTransport')
+            ->add('StatutTransport', ChoiceType::class, [
+                'choices'  => [
+                    'En attente de validation' => 'En attente de validation',
+                    'Validé' => 'Validé',
+                    'Annulé' => 'Annulé',
+                ]
+            ])
             ->add('TypeTransport', EntityType::class, [
                 'label' => 'Type de transport',
                 'class' => TypeTransport::class,

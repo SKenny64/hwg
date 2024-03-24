@@ -15,9 +15,13 @@ use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Evenement;
 use App\Entity\ImageEvenement;
+use App\Entity\Participation;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\EvenementType;
 use App\Repository\ImageEvenementRepository;
+use App\Entity\Transport;
+use App\Form\TransportType;
+use App\Repository\TypeTransportRepository;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -60,7 +64,11 @@ class AdminController extends AbstractController
     }
     
     #[Route('/evenement/{id}/edit', name: 'app_admin_evenement_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
+    public function evenementEdit(
+        Request $request, 
+        Evenement $evenement, 
+        EntityManagerInterface $entityManager
+    ): Response
     {
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
@@ -78,11 +86,91 @@ class AdminController extends AbstractController
     }
 
     #[Route('/categorie', name: 'app_admin_categorie', methods: ['GET', 'POST'])]
-    public function categorie(CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManagerInterface): Response
+    public function categorie(
+        CategorieRepository $categorieRepository, 
+    ): Response
     {
-        return $this->render('categorie/index.html.twig', [
+        return $this->render('admin/categorie.html.twig', [
             'categories' => $categorieRepository->findAll(),
         ]); 
+    }
+
+    #[Route('/participation', name: 'app_admin_participation', methods: ['GET', 'POST'])]
+    public function participation(
+        Request $request, 
+        ParticipationRepository $participationRepository, 
+        EvenementRepository $evenementRepository,
+    ) :Response
+    {
+
+        $participations = $participationRepository->findAll();
+        $evenements = $evenementRepository->findAll();
+
+        $users = [];
+        $eventId = [];
+
+        foreach ($participations as $participation) {
+            $users[] = $participation->getUser();
+        }
+
+        foreach ($evenements as $evenement) {
+            $eventId[] = $evenement->getId();
+        }
+
+        return $this->render('admin/participation.html.twig',[
+            'participations' => $participations,
+            'eventId' => $eventId
+        ]);
+    }
+
+    #[Route('/transport', name: 'app_admin_transport', methods: ['GET', 'POST'])]
+    public function transport(
+        TransportRepository $transportRepository
+    ): Response
+    {
+        return $this->render('admin/transport.html.twig', [
+            'transports' => $transportRepository->findAll(),
+        ]);
+    }
+
+    #[Route('transport/{id}/edit', name: 'app_admin_transport_edit', methods: ['GET', 'POST'])]
+    public function transportEdit(Request $request, Transport $transport, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+
+        $form = $this->createForm(TransportType::class, $transport);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('transport/edit.html.twig', [
+            'transport' => $transport,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/type_transport', name: 'app_admin_typetransport', methods: ['GET', 'POST'])]
+    public function typeTransport(
+        TypeTransportRepository $typeTransportRepository, 
+    ): Response
+    {
+        return $this->render('admin/typetransport.html.twig', [
+            'typeTransports' => $typeTransportRepository->findAll(),
+        ]); 
+    }
+
+    #[Route('/reservation', name: 'app_admin_reservation', methods: ['GET', 'POST'])]
+    public function reservation(
+        ReservationRepository $reservationRepository
+    ): Response
+    {
+        return $this->render('admin/reservation.html.twig', [
+            'reservations' => $reservationRepository->findAll(),
+        ]);
     }
 
     function compteur_visites($id){

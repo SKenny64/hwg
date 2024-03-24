@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ImageEvenementRepository;
+use App\Repository\ReservationRepository;
 use App\Repository\TransportRepository;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -44,8 +45,6 @@ class HomeController extends AbstractController
                 'form' => $form
             ]);
         } 
-
-        
     }
 
     
@@ -54,18 +53,28 @@ class HomeController extends AbstractController
         $id,
         ImageEvenementRepository $imageEvenementRepository,
         TransportRepository  $transportRepository,
+        ReservationRepository $reservationRepository,
     ): Response
     {
+        $transportResa = $transportRepository->findAll();
 
         $image = $imageEvenementRepository->findEvent($id);
         $evenement = $image->getEvenement();
         $transports = $transportRepository->findByEvents($id);
+
+        $nbreReservations = [];
+
+        foreach ($transportResa as $transport) {
+            $idTransport = $transport->getId();
+            $nbreReservations[$idTransport] = $reservationRepository->countByTransport($idTransport);
+        }
+
+
         return $this->render('home/show.html.twig', [
             'image' => $image,
             'evenement' => $evenement,
             'transports' => $transports,
-            'totaleVisites' => $this->compteur_visites($id)["total"]
-            
+            'nbreReservations' => $nbreReservations,
         ]);
     }
     

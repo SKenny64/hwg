@@ -47,13 +47,14 @@ class ParticipationRepository extends ServiceEntityRepository
         ;
     }
 
-//    public function findOneBySomeField($value): ?Participation
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function countByEvent($eventId): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->andWhere('p.evenement = :eventId')
+            ->setParameter('eventId', $eventId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+    
 }

@@ -86,7 +86,7 @@ class TransportController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_transport_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('transport/edit.html.twig', [
@@ -103,6 +103,6 @@ class TransportController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_transport_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
     }
 }

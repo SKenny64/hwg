@@ -60,7 +60,7 @@
 			<thead class="table-dark">
 				<tr>
 					<th>Tarif</th>
-					<th>Place</th>
+					<th>Place Disponible(s)</th>
 					<th>Contact</th>
 					<th>Date de Depart</th>
 					<th>Lieu de Depart</th>
@@ -72,7 +72,7 @@
 				{% for transport in transports %}
 					<tr>
 						<td>{{ transport.TarifPersonne }}</td>
-						<td>{{ transport.NbPlace }}</td>
+						<td>{{ transport.NbPlace - nbreReservations[transport.id] }}</td>
 						<td>{{ transport.InfoContact }}</td>
 						<td>{{ transport.DateDepart ? transport.DateDepart|date('d-m-Y H:i:s') : '' }}</td>
 						<td>{{ transport.LieuDepart }}</td>
@@ -89,7 +89,7 @@
 									<table class="table">
 										<tbody>
 											<tr>
-												<th>TarifPersonne</th>
+												<th>Tarif par personne</th>
 												<td>{{ transport.TarifPersonne }}</td>
 											</tr>
 											<tr>
@@ -97,32 +97,32 @@
 												<td>{{ transport.descriptif }}</td>
 											</tr>
 											<tr>
-												<th>InfoContact</th>
+												<th>Info contact</th>
 												<td>{{ transport.InfoContact }}</td>
 											</tr>
 											<tr>
-												<th>DateDepart</th>
+												<th>Date de départ</th>
 												<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
 											</tr>
 											<tr>
-												<th>DateCreation</th>
-												<td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
-											</tr>
-											<tr>
-												<th>LieuDepart</th>
+												<th>Lieu de départ</th>
 												<td>{{ transport.LieuDepart }}</td>
 											</tr>
 											<tr>
-												<th>NbPlace</th>
+												<th>Nombre de places totale</th>
 												<td>{{ transport.NbPlace }}</td>
 											</tr>
 											<tr>
-												<th>InfoPaiement</th>
+												<th>Info paiement</th>
 												<td>{{ transport.InfoPaiement }}</td>
 											</tr>
 										</tbody>
 									</table>
+									{% if transport.NbPlace - nbreReservations[transport.id] == 0 %}
+									<span class= "text-warning" >Ce Transport est complet ! </span>
+									{% else %}
 									<a href="{{ path('app_reservation_new', {'id': transport.id})}}" class="btn btn-success">Réserver</a>
+									{% endif %}
 								</div>
 							</div>
 						</td>
