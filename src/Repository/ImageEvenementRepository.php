@@ -77,18 +77,22 @@ class ImageEvenementRepository extends ServiceEntityRepository
             ->getResult();
    }
 
-   public function findBySearchTermAndStatus($term, $status = 'Validé')
-    {
-        $qb = $this->createQueryBuilder('i')
-            ->leftJoin('i.evenement', 'e')
-            ->where('e.nomEvenement LIKE :term')
-            ->setParameter('term', '%'.$term.'%');
+   public function findBySearchTermAndStatus($term, $status = 'Validé', $currentDate = new \DateTime())
+{
+    $qb = $this->createQueryBuilder('i')
+        ->leftJoin('i.evenement', 'e')
+        ->where('e.nomEvenement LIKE :term')
+        ->setParameter('term', '%'.$term.'%');
 
-        if ($status) {
-            $qb->andWhere('e.statusEvenement = :status')
-                ->setParameter('status', $status);
-        }
-
-        return $qb->getQuery()->getResult();
+    if ($status) {
+        $qb->andWhere('e.statusEvenement = :status')
+            ->setParameter('status', $status);
     }
+
+    $qb->andWhere('e.dateEvenement > :currentDate')
+        ->setParameter('currentDate', $currentDate)
+        ->setMaxResults(8);
+
+    return $qb->getQuery()->getResult();
+}
 }

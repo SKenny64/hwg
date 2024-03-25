@@ -1,242 +1,249 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin - Back Office{% endblock %}
+{% block title %}Admin - Back Office
+{% endblock %}
 
 {% block body %}
-{{ include('admin/nav-admin.html.twig') }}
-<h1>Liste des transports</h1>
-<div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h2>Transport en attente de validation</h2>
-    <div class="overflow-y-auto" style="max-height: 350px">
-        <table class="table table-sm">
-            <thead class="table-dark sticky-top z-2">
-                <tr>
-                    <th>StatutTransport</th>
-                    <th>TarifPersonne</th>
-                    <th>Descriptif</th>
-                    <th>InfoContact</th>
-                    <th>DateDepart</th>
-                    <th>DateCreation</th>
-                    <th>LieuDepart</th>
-                    <th>NbPlace</th>
-                    <th>InfoPaiement</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody class="fs-6">
-            {% for transport in transports %}
-                {% if transport.statutTransport == 'En attente de validation' %}
-                <tr>
-                    <td>
-                        <span class="btn btn-secondary btn-sm">{{ transport.statutTransport }}</span>
-                    </td>
-                    <td>{{ transport.TarifPersonne }} €</td>
-                    <td>{{ transport.descriptif }}</td>
-                    <td>{{ transport.InfoContact }}</td>
-                    <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.LieuDepart }}</td>
-                    <td>{{ transport.NbPlace }}</td>
-                    <td>{{ transport.InfoPaiement }}</td>
-                    <td>
-                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas{{ transport.id }}" aria-controls="offcanvasRight">Détails</button>
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas{{ transport.id }}" aria-labelledby="offcanvasRightLabel">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasRightLabel">Détail de l'évènement</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Id</th>
-                                            <td>{{ transport.id }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>TarifPersonne</th>
-                                            <td>{{ transport.TarifPersonne }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Descriptif</th>
-                                            <td>{{ transport.descriptif }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>InfoContact</th>
-                                            <td>{{ transport.InfoContact }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>DateDepart</th>
-                                            <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>DateCreation</th>
-                                            <td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>LieuDepart</th>
-                                            <td>{{ transport.LieuDepart }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>NbPlace</th>
-                                            <td>{{ transport.NbPlace }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>InfoPaiement</th>
-                                            <td>{{ transport.InfoPaiement }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>StatutTransport</th>
-                                            <td>{{ transport.StatutTransport }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+	{{ include('admin/nav-admin.html.twig') }}
+	<h1>Liste des transports</h1>
+	<div class="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+		<h2>Transport(s) en attente de validation :
+		</h2>
+		<div class="overflow-y-auto" style="max-height: 350px">
+			<table class="table table-sm">
+				<thead class="table-dark sticky-top z-2">
+					<tr>
+						<th>StatutTransport</th>
+						<th>TarifPersonne</th>
+						<th>Descriptif</th>
+						<th>InfoContact</th>
+						<th>DateDepart</th>
+						<th>DateCreation</th>
+						<th>LieuDepart</th>
+						<th>NbPlace</th>
+						<th>InfoPaiement</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody class="fs-6">
+					{% for transport in transports %}
+						{% if transport.statutTransport == 'En attente de validation' %}
+							<tr>
+								<td>
+									<span class="btn btn-secondary btn-sm">{{ transport.statutTransport }}</span>
+								</td>
+								<td>{{ transport.TarifPersonne }}
+									€</td>
+								<td>{{ transport.descriptif }}</td>
+								<td>{{ transport.InfoContact }}</td>
+								<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ transport.LieuDepart }}</td>
+								<td>{{ transport.NbPlace }}</td>
+								<td>{{ transport.InfoPaiement }}</td>
+								<td>
+									<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas{{ transport.id }}" aria-controls="offcanvasRight">Détails</button>
+									<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas{{ transport.id }}" aria-labelledby="offcanvasRightLabel">
+										<div class="offcanvas-header">
+											<h5 class="offcanvas-title" id="offcanvasRightLabel">Détail de l'évènement</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+										</div>
+										<div class="offcanvas-body">
+											<table class="table">
+												<tbody>
+													<tr>
+														<th>Id</th>
+														<td>{{ transport.id }}</td>
+													</tr>
+													<tr>
+														<th>TarifPersonne</th>
+														<td>{{ transport.TarifPersonne }}</td>
+													</tr>
+													<tr>
+														<th>Descriptif</th>
+														<td>{{ transport.descriptif }}</td>
+													</tr>
+													<tr>
+														<th>InfoContact</th>
+														<td>{{ transport.InfoContact }}</td>
+													</tr>
+													<tr>
+														<th>DateDepart</th>
+														<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+													</tr>
+													<tr>
+														<th>DateCreation</th>
+														<td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
+													</tr>
+													<tr>
+														<th>LieuDepart</th>
+														<td>{{ transport.LieuDepart }}</td>
+													</tr>
+													<tr>
+														<th>NbPlace</th>
+														<td>{{ transport.NbPlace }}</td>
+													</tr>
+													<tr>
+														<th>InfoPaiement</th>
+														<td>{{ transport.InfoPaiement }}</td>
+													</tr>
+													<tr>
+														<th>StatutTransport</th>
+														<td>{{ transport.StatutTransport }}</td>
+													</tr>
+												</tbody>
+											</table>
 
-                                <a class='btn btn-info mb-3' href="{{ path('app_home_show', {'id': transport.evenement.id}) }}">Page de l'évènement</a>
-                                <a class="btn btn-secondary mb-3" href="{{ path('app_admin_transport_edit', {'id': transport.id}) }}">modifier</a>
-                                {{ include('transport/_delete_form.html.twig') }}
-                            </div>
-                        </div>
-                    </td>
-                {% endif %}
-            {% else %}
-                <tr>
-                    <td colspan="14">Aucun historique</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h2>Trnasports validés</h2>
-    <div class="overflow-y-auto" style="max-height: 350px">
-        <table class="table table-sm">
-            <thead class="table-dark">
-                <tr>
-                    <th>StatutTransport</th>
-                    <th>TarifPersonne</th>
-                    <th>Descriptif</th>
-                    <th>InfoContact</th>
-                    <th>DateDepart</th>
-                    <th>DateCreation</th>
-                    <th>LieuDepart</th>
-                    <th>NbPlace</th>
-                    <th>InfoPaiement</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for transport in transports %}
-                {% if transport.statutTransport == 'Validé' %}
-                <tr>
-                    <td>
-                        <span class="btn btn-success btn-sm">{{ transport.statutTransport }}</span>
-                    </td>
-                    <td>{{ transport.TarifPersonne }} €</td>
-                    <td>{{ transport.descriptif }}</td>
-                    <td>{{ transport.InfoContact }}</td>
-                    <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.LieuDepart }}</td>
-                    <td>{{ transport.NbPlace }}</td>
-                    <td>{{ transport.InfoPaiement }}</td>
-                </tr>
-                {% endif %}
-            {% else %}
-                <tr>
-                    <td colspan="14">Aucun historique</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h2>Trnasports Annulés</h2>
-    <div class="overflow-y-auto" style="max-height: 350px">
-        <table class="table table-sm">
-            <thead class="table-dark">
-                <tr>
-                    <th>StatutTransport</th>
-                    <th>TarifPersonne</th>
-                    <th>Descriptif</th>
-                    <th>InfoContact</th>
-                    <th>DateDepart</th>
-                    <th>DateCreation</th>
-                    <th>LieuDepart</th>
-                    <th>NbPlace</th>
-                    <th>InfoPaiement</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for transport in transports %}
-                {% if transport.statutTransport == 'Annulé' %}
-                <tr>
-                    <td>
-                        <span class="btn btn-success btn-sm">{{ transport.statutTransport }}</span>
-                    </td>
-                    <td>{{ transport.TarifPersonne }} €</td>
-                    <td>{{ transport.descriptif }}</td>
-                    <td>{{ transport.InfoContact }}</td>
-                    <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.LieuDepart }}</td>
-                    <td>{{ transport.NbPlace }}</td>
-                    <td>{{ transport.InfoPaiement }}</td>
-                </tr>
-                {% endif %}
-            {% else %}
-                <tr>
-                    <td colspan="14">Aucun historique</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class ="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h2>Transports Terminés</h2>
-    <div class="overflow-y-auto" style="max-height: 350px">
-        <table class="table table-sm">
-            <thead class="table-dark">
-                <tr>
-                    <th>StatutTransport</th>
-                    <th>TarifPersonne</th>
-                    <th>Descriptif</th>
-                    <th>InfoContact</th>
-                    <th>DateDepart</th>
-                    <th>DateCreation</th>
-                    <th>LieuDepart</th>
-                    <th>NbPlace</th>
-                    <th>InfoPaiement</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for transport in transports %}
-                {% if transport.statutTransport == 'Terminé' %}
-                <tr>
-                    <td>
-                        <span class="btn btn-success btn-sm">{{ transport.statutTransport }}</span>
-                    </td>
-                    <td>{{ transport.TarifPersonne }} €</td>
-                    <td>{{ transport.descriptif }}</td>
-                    <td>{{ transport.InfoContact }}</td>
-                    <td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ transport.LieuDepart }}</td>
-                    <td>{{ transport.NbPlace }}</td>
-                    <td>{{ transport.InfoPaiement }}</td>
-                </tr>
-                {% endif %}
-            {% else %}
-                <tr>
-                    <td colspan="14">Aucun historique</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+											<a class='btn btn-info mb-3' href="{{ path('app_home_show', {'id': transport.evenement.id}) }}">Page de l'évènement</a>
+											<a class="btn btn-secondary mb-3" href="{{ path('app_admin_transport_edit', {'id': transport.id}) }}">modifier</a>
+											{{ include('transport/_delete_form.html.twig') }}
+										</div>
+									</div>
+								</td>
+							{% endif %}
+						{% else %}
+							<tr>
+								<td colspan="14">Aucun historique</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+		<h2>Transport(s) validé(s) :</h2>
+		<div class="overflow-y-auto" style="max-height: 350px">
+			<table class="table table-sm">
+				<thead class="table-dark">
+					<tr>
+						<th>StatutTransport</th>
+						<th>TarifPersonne</th>
+						<th>Descriptif</th>
+						<th>InfoContact</th>
+						<th>DateDepart</th>
+						<th>DateCreation</th>
+						<th>LieuDepart</th>
+						<th>NbPlace</th>
+						<th>InfoPaiement</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for transport in transports %}
+						{% if transport.statutTransport == 'Validé' %}
+							<tr>
+								<td>
+									<span class="btn btn-success btn-sm">{{ transport.statutTransport }}</span>
+								</td>
+								<td>{{ transport.TarifPersonne }}
+									€</td>
+								<td>{{ transport.descriptif }}</td>
+								<td>{{ transport.InfoContact }}</td>
+								<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ transport.LieuDepart }}</td>
+								<td>{{ transport.NbPlace }}</td>
+								<td>{{ transport.InfoPaiement }}</td>
+							</tr>
+						{% endif %}
+					{% else %}
+						<tr>
+							<td colspan="14">Aucun historique</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+		<h2>Transport(s) Annulé(s)</h2>
+		<div class="overflow-y-auto" style="max-height: 350px">
+			<table class="table table-sm">
+				<thead class="table-dark">
+					<tr>
+						<th>StatutTransport</th>
+						<th>TarifPersonne</th>
+						<th>Descriptif</th>
+						<th>InfoContact</th>
+						<th>DateDepart</th>
+						<th>DateCreation</th>
+						<th>LieuDepart</th>
+						<th>NbPlace</th>
+						<th>InfoPaiement</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for transport in transports %}
+						{% if transport.statutTransport == 'Annulé' %}
+							<tr>
+								<td>
+									<span class="btn btn-success btn-sm">{{ transport.statutTransport }}</span>
+								</td>
+								<td>{{ transport.TarifPersonne }}
+									€</td>
+								<td>{{ transport.descriptif }}</td>
+								<td>{{ transport.InfoContact }}</td>
+								<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ transport.LieuDepart }}</td>
+								<td>{{ transport.NbPlace }}</td>
+								<td>{{ transport.InfoPaiement }}</td>
+							</tr>
+						{% endif %}
+					{% else %}
+						<tr>
+							<td colspan="14">Aucun historique</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="event-panel shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+		<h2>Transport(s) Terminé(s)</h2>
+		<div class="overflow-y-auto" style="max-height: 350px">
+			<table class="table table-sm">
+				<thead class="table-dark">
+					<tr>
+						<th>StatutTransport</th>
+						<th>TarifPersonne</th>
+						<th>Descriptif</th>
+						<th>InfoContact</th>
+						<th>DateDepart</th>
+						<th>DateCreation</th>
+						<th>LieuDepart</th>
+						<th>NbPlace</th>
+						<th>InfoPaiement</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for transport in transports %}
+						{% if transport.statutTransport == 'Terminé' %}
+							<tr>
+								<td>
+									<span class="btn btn-success btn-sm">{{ transport.statutTransport }}</span>
+								</td>
+								<td>{{ transport.TarifPersonne }}
+									€</td>
+								<td>{{ transport.descriptif }}</td>
+								<td>{{ transport.InfoContact }}</td>
+								<td>{{ transport.DateDepart ? transport.DateDepart|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ transport.DateCreation ? transport.DateCreation|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ transport.LieuDepart }}</td>
+								<td>{{ transport.NbPlace }}</td>
+								<td>{{ transport.InfoPaiement }}</td>
+							</tr>
+						{% endif %}
+					{% else %}
+						<tr>
+							<td colspan="14">Aucun historique</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}

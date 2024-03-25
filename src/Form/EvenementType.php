@@ -63,10 +63,10 @@ class EvenementType extends AbstractType
                 'label' => 'Capacité totale (en nombre de personnes)'
             ])
             ->add('duree', null, [
-                'label' => 'Durée en minutes'
+                'label' => 'Durée'
             ])
             ->add('tarifEvenement', null, [
-                'label' => 'Tarif de l\'entrée',
+                'label' => 'Tarif de l\'entrée en € (mettre 0 si gratuit)',
             ]);
 
             if ($role[0] === 'ROLE_ADMIN') {
@@ -75,6 +75,7 @@ class EvenementType extends AbstractType
                         'En attente de validation' => 'En attente de validation',
                         'Validé' => 'Validé',
                         'Annulé' => 'Annulé',
+                        'Terminé' => 'Terminé',
                     ],
                 ])
                     ->add('User', EntityType::class, [
