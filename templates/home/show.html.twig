@@ -119,9 +119,10 @@
 										</tbody>
 									</table>
 									{% if transport.NbPlace - nbreReservations[transport.id] == 0 %}
-									<span class= "text-warning" >Ce Transport est complet ! </span>
+										<span class="text-warning">Ce Transport est complet !
+										</span>
 									{% else %}
-									<a href="{{ path('app_reservation_new', {'id': transport.id})}}" class="btn btn-success">Réserver</a>
+										<a href="{{ path('app_reservation_new', {'id': transport.id})}}" class="btn btn-success">Réserver</a>
 									{% endif %}
 								</div>
 							</div>

@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Doctrine\ORM\EntityRepository;
 
 class EvenementType extends AbstractType
 {
@@ -84,6 +85,10 @@ class EvenementType extends AbstractType
             $builder->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'libelleCategorie',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.libelleCategorie', 'ASC');
+                },
                 ])
 
             ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))

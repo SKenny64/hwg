@@ -31,20 +31,22 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $searchTerm = $form->get('searchName')->getData();
+            $status = 'Validé';
             return $this->render('home/index.html.twig', [
                 'search' => $searchTerm,
                 'categories' => $categorieRepository->findAll(),
-                'images' => $imageEvenementRepository->findBySearchTerm($searchTerm),
+                'images' => $imageEvenementRepository->findBySearchTermAndStatus($searchTerm, $status),
                 'form' => $form
             ]);
         } else {
+            $status = 'Validé';
             return $this->render('home/index.html.twig', [
                 'search' => null,
                 'categories' => $categorieRepository->findAll(),
-                'images' => $imageEvenementRepository->findByCouverture(),
+                'images' => $imageEvenementRepository->findBySearchTermAndStatus(null, $status),
                 'form' => $form
             ]);
-        } 
+        }
     }
 
     

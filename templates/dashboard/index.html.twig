@@ -10,7 +10,7 @@
 		</div>
 	</nav>
 	<div class="last-participation my-5">
-		<h2>Participations :</h2>
+		<h2>Participation(s) :</h2>
 		<table class="table">
 			<thead class="table-dark">
 				<tr>
@@ -95,7 +95,7 @@
 	</div>
 	{% if app.user.roles[0] == "ROLE_ORGA" %}
 		<div class="last-event my-5">
-			<h2>Evènement organiser :</h2>
+			<h2>Evènement(s) organisé(s) :</h2>
 			<table class="table table-sm">
 				<thead class="table-dark">
 					<tr>
@@ -117,6 +117,8 @@
 							<tr>
 								<td class="align-middle">
 									<span {% if evenement.statusEvenement == 'En attente de validation' %} class="btn btn-secondary btn-sm">
+									{% elseif evenement.statusEvenement == 'Annulé' %}
+										class="btn btn-danger btn-sm">
 									{% else %}
 										class="btn btn-success btn-sm">
 									{% endif %}
@@ -145,7 +147,7 @@
 	<tr>
 		<td colspan="14">Aucun historique</td>
 	</tr>
-{% endfor %}</tbody></table></div>{% endif %}<div class="last-reservation my-5"><h2>Réservation de transport :</h2><table class="table"><thead class="table-dark"><tr>
+{% endfor %}</tbody></table></div>{% endif %}<div class="last-reservation my-5"><h2>Réservation(s) de transport :</h2><table class="table"><thead class="table-dark"><tr>
 <th>Date de Reservation</th>
 <th>Evenement lié</th>
 <th>Prix de la place</th>
@@ -211,7 +213,7 @@
 </tr>{% else %}
 <tr>
 	<td colspan="3">no records found</td>
-</tr>{% endfor %}</tbody></table></div><div class="last-transport my-5"><h2>Transport proposer</h2><table class="table"><thead class="table-dark"><tr>
+</tr>{% endfor %}</tbody></table></div><div class="last-transport my-5"><h2>Transport(s) proposé(s)</h2><table class="table"><thead class="table-dark"><tr>
 <th>Statut</th>
 <th>Tarif</th>
 <th>Contact</th>
@@ -239,7 +241,8 @@
 			<a class="btn btn-secondary" href="{{ path('app_transport_edit', {'id': transport.id}) }}">modifier</a>
 		</td>
 	</tr>
-{% endif %}{% else %}
-<tr>
-	<td colspan="11">Aucun</td>
-</tr>{% endfor %}</tbody></table></div>{% endblock %}
+{% else %}
+	<tr>
+		<td colspan="11">Aucun</td>
+	</tr>
+{% endif %}{% endfor %}</tbody></table></div>{% endblock %}
